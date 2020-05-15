@@ -1,0 +1,61 @@
+
+@media  screen and (min-width:960px)  {
+
+    .imgStyle {
+        display: none !important;
+    }
+
+}
+
+@media (max-width:960px)  {
+
+  *{
+    overflow-x: hidden;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  .tabStyle{
+    position: sticky;
+  }
+  .listAdress{
+    display:block !important;
+  }
+
+}
+
+
+@media (max-width:760px)  {
+
+  *{
+    overflow-x: hidden;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  /* .footerStyle{
+    display:block !important;
+  } */
+}
+
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px; 
+  overflow-x: hidden;}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #152535;
+  line-height: 1.3;
+  font-weight: 700; }
+
+p {
+  color: #828282;
+  font-size: 14px;
+  line-height: 2;
+  font-weight: 400; }
