@@ -1,4 +1,4 @@
-# IGIHANGO-Blog
+# MyBlog
 
 [![Build Status](https://travis-ci.org/fistonhn/MyBlog.svg?branch=master)](https://travis-ci.org/fistonhn/MyBlog)
 [![Coverage Status](https://coveralls.io/repos/github/fistonhn/MyBlog/badge.svg?branch=master)](https://coveralls.io/github/fistonhn/MyBlog?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/b5f5c43031e8390e4425/maintainability)](https://codeclimate.com/github/fistonhn/MyBlog/maintainability)
