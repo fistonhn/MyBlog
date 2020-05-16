@@ -4,6 +4,8 @@ import { signupInput, signinInput } from '../helper/userInputValidator';
 const validateSignup = (req, res, next) => {
   const { error } = signupInput(req);
   if (error) return res.status(400).json({ status: res.statusCode, error: error.details[0].message });
+  // const validation = schema.validate(req.body);
+  // res.send(validation);
 
   next();
 };
