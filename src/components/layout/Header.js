@@ -88,6 +88,7 @@ export default function SearchAppBar() {
                   />
             </Link>
           </Typography>
+
           <Button color="inherit"> <Link href="/Login">Login</Link></Button>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../layout/Header'
+import LogoutHeader from '../../layout/LogoutHeader'
 import Footer from '../../layout/Footer'
 import { Col, Row, ListGroup, Button, Form } from 'react-bootstrap';
 import CKEditor from '@ckeditor/ckeditor5-react';
@@ -18,9 +18,9 @@ const listStyle={
 function CreatePost() {
     return (
         <div>
-            <Header /> 
+            <LogoutHeader /> 
             <Row >
-                <Col  style={{height:'575px', background:'#0d47a1'}} xs={3}>
+                <Col  lg={3} md={3} xs={12}  style={{height:'auto', background:'#0d47a1'}}>
                 <ListGroup variant="flush" >
                     <ListGroup.Item action href="/ManagePosts" style={listStyle}>
                     Manage posts
@@ -33,7 +33,7 @@ function CreatePost() {
                     </ListGroup.Item>
                 </ListGroup>
                 </Col>
-                <Col style={{height:'575px', padding:'40px 100px 100px', overflowY:'scroll'}}  xs={9}>
+                <Col lg={9} md={9} xs={12}  style={{height:'auto', padding:'5% 8%',}}>
                     <div className="mb-3">
                         <Button action href="/CreateTopic" variant="primary" size="md">
                         Add topic
@@ -42,12 +42,12 @@ function CreatePost() {
                         Manage topics
                         </Button>
                     </div>
-                    <h2 style={{textAlign:'center'}}>Create topic</h2>
+                    <h2 style={{textAlign:'center', fontFamily:"roboto", fontSize:'2rem', overflow:'hidden', padding:'10px'}}>Create topic</h2>
                     <Form.Group>
                         <Form.Label><h5>Name</h5></Form.Label>
                         <Form.Control type="text"/>
                         <div className="App">
-                            <h5 style={{marginTop:'30px'}}>Description</h5>
+                            <h5 style={{textAlign:'center', fontFamily:"roboto", fontSize:'2rem', overflow:'hidden', padding:'10px'}}>Description</h5>
                             <CKEditor
                                 editor={ ClassicEditor }
                                 data="<p>Write somethings here!</p>"

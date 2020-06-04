@@ -52,19 +52,54 @@ const getUsers = async (req, res) => {
 
   const data = users.rows;
 
-  res.status(201).json({ status: 201, message: 'Users displayed successfull', data });
+  res.status(201).send({ status: 201, message: 'Users displayed successfull', data });
+};
+
+const getOneUser = async (req, res) => {
+  const { id } = req.params;
+  const singleUser = await pool.query(query.getSpecificUser(id));
+
+  if (singleUser.rowCount > 0) {
+    res.status(200).json({ status: 200, data: singleUser.rows[0] });
+  } else {
+    res.status(404).json({ status: 404, message: 'No user to display' });
+  }
+
 };
 
 const updateUser = async (req, res) => {
 
   const { id } = req.params;
-  let { firstName, lastName, email, isAdmin, password} = req.body;
 
-  password = encryptPassword(password);
-  const updateUserData = await pool.query(query.updateSpecificUser(firstName, lastName, email, isAdmin, password, id));
+  const user = await pool.query(query.getSpecificUser(id));
+
+  if (user.rowCount === 0) return res.status(404).json({ status: 404, message: 'user not found' });
+
+  let { firstName, lastName, email, isAdmin} = req.body;
+
+  const usersFound = await pool.query(query.findUser(email));
+
+  if (usersFound.rowCount > 0) return res.status(409).json({ message: 'Email address already taken' });
+
+  
+  if (!firstName) {
+    firstName = user.rows[0].firstname;
+  }
+  if (!lastName) {
+    lastName = user.rows[0].lastname;
+  }
+  if (!email) {
+    email = user.rows[0].email;
+  }
+  if (!isAdmin) {
+    isAdmin = user.rows[0].isadmin;
+  }
+
+
+  const updateUserData = await pool.query(query.updateSpecificUser(firstName, lastName, email, isAdmin, id));
 
   if (updateUserData.rowCount > 0) {
-    res.status(200).json({ message: 'user successful updated', data: updateUserData.rows[0] });
+    res.status(200).json({ status: 200, message: 'user successful updated', data: updateUserData.rows[0] });
   } else {
     res.status(404).json({ status: 404, message: 'user not found' });
   }
@@ -85,4 +120,4 @@ const deleteUser = async (req, res) => {
 
 
 
-export { signup, login, getUsers, updateUser, deleteUser };
+export { signup, login, getUsers, getOneUser, updateUser, deleteUser };

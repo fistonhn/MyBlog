@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../layout/Header'
+import LogoutHeader from '../../layout/LogoutHeader'
 import Footer from '../../layout/Footer'
 import { Col, Row, ListGroup, Button, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,9 +16,9 @@ const listStyle={
 function ManageTopics() {
     return (
         <div>
-            <Header /> 
+            <LogoutHeader /> 
             <Row >
-                <Col  style={{height:'575px', background:'#0d47a1'}} xs={3}>
+                <Col  lg={3} md={3} xs={12} style={{height:'auto', background:'#0d47a1'}}>
                 <ListGroup variant="flush" >
                     <ListGroup.Item action href="/ManagePosts" style={listStyle}>
                     Manage posts
@@ -31,7 +31,7 @@ function ManageTopics() {
                     </ListGroup.Item>
                 </ListGroup>
                 </Col>
-                <Col style={{height:'575px', padding:'40px 100px 100px', overflowY:'scroll'}}  xs={9}>
+                <Col lg={9} md={9} xs={12}  style={{height:'auto', padding:'5% 8%',}}>
                     <div className="mb-2">
                         <Button action href="/CreateTopic" variant="primary" size="md">
                         Add topic
@@ -40,7 +40,7 @@ function ManageTopics() {
                         Manage topics
                         </Button>
                     </div>
-                    <h2 style={{textAlign:'center'}}>Manage topics</h2>
+                    <h2  style={{textAlign:'center', fontFamily:"roboto", fontSize:'2rem', overflow:'hidden', padding:'10px'}}>Manage topics</h2>
                     <Table style={{borderCollapse:'collapse', fontSize:'1.1rem', borderBottom:'1px solid #d3d3d3'}}>
                     <thead>
                         <tr>

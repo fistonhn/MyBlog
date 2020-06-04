@@ -30,10 +30,10 @@ const dropdownStyle={
 }
 
 const navBarStyle={
-    fontFamily: "Roboto",
     paddingLeft:'7%',
     paddingRight:'7%',
     backgroundColor:'#0d47a1',
+    fontFamily:'"Comic Sans MS", cursive, sans-serif'
 }
 const navStyle={
     padding: '10px 15px',
@@ -54,31 +54,31 @@ const navStyle={
             alt="IGIHANGO.RW"
             />
             </Nav.Link>
-            <Navbar.Toggle  style={{backgroundColor:'#0d47a1', position: 'sticky', border:'none', color:'#fff'}} aria-controls="responsive-navbar-nav" />
+            <Navbar.Toggle style={{backgroundColor:'#0d47a1', position: 'sticky', border:'none', color:'#fff'}} aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav  defaultActiveKey="/home" as="ul" className="mr-auto">
-                    <Nav.Link style={navStyle}  href="/">Ahabanza </Nav.Link>
-                    <Dropdown id="collasible-nav-dropdown">
-                        <Dropdown.Toggle as={CustomToggle} id="collasible-nav-dropdown">
+                    <Nav.Link className="hovering" style={navStyle}  href="/">Ahabanza </Nav.Link>
+                    <Dropdown className="hovering" id="collasible-nav-dropdown">
+                        <Dropdown.Toggle className="hovering" as={CustomToggle} id="collasible-nav-dropdown">
                             Serivisi Dutanga
                         </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="/Catagories">Video Production</Dropdown.Item>
+                        <Dropdown.Menu className="hovering">
+                            <Dropdown.Item>Video Production</Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item href="/SingleArticles">Photography</Dropdown.Item>
+                            <Dropdown.Item >Photography</Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item href="/Contact">Wedding coverage</Dropdown.Item>
+                            <Dropdown.Item >Wedding coverage</Dropdown.Item>
                             <Dropdown.Divider />
-                            <Dropdown.Item href="/About">Web Development</Dropdown.Item>
+                            <Dropdown.Item>Web Development</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <Nav.Link style={navStyle} href="/Catagories">Imyidagaduro</Nav.Link>
-                    <Nav.Link style={navStyle} href="/Catagories">Siporo</Nav.Link>
-                    <Nav.Link style={navStyle} href="/Catagories">Politiki</Nav.Link>
-                    <Nav.Link style={navStyle} href="/Catagories">Ubukungu</Nav.Link>
-                    <Nav.Link style={navStyle} href="/Catagories">Tekinologi</Nav.Link>
-                    <Nav.Link style={navStyle} href="/Catagories">Ubuzima</Nav.Link>
-                    <Nav.Link style={navStyle} href="/https://www.youtube.com/channel/UC-WsxVRz2IhgBSQ_oSxlhXQ/videos?view_as=subscriber">Igihango TV</Nav.Link>
+                    <Nav.Link className="hovering" style={navStyle} href="/Catagories/Imyidagaduro">Imyidagaduro</Nav.Link>
+                    <Nav.Link className="hovering" style={navStyle} href="/Catagories/Siporo">Siporo</Nav.Link>
+                    <Nav.Link className="hovering" style={navStyle} href="/Catagories/Politiki">Politiki</Nav.Link>
+                    <Nav.Link className="hovering" style={navStyle} href="/Catagories/Ubukungu">Ubukungu</Nav.Link>
+                    <Nav.Link className="hovering" style={navStyle} href="/Catagories/Tekinologi">Tekinologi</Nav.Link>
+                    <Nav.Link className="hovering" style={navStyle} href="/Catagories/Ubuzima">Ubuzima</Nav.Link>
+                    <Nav.Link className="hovering" style={navStyle} href="/https://www.youtube.com/channel/UC-WsxVRz2IhgBSQ_oSxlhXQ/videos?view_as=subscriber">Igihango TV</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import About from './components/pages/About';
 import Home from './components/pages/Home';
 import Catagories from './components/pages/Catagories';
-import SingleArticles from './components/pages/SingleAritical';
 import Contact from './components/pages/Contact';
-import Register from './components/pages/Register';
 import Login from './components/pages/Login';
+import Register from './components/pages/Register';
+import SingleAritical from './components/pages/SingleAritical';
 
 import ManagePosts from './components/pages/admin/ManagePosts';
 import CreatePost from './components/pages/admin/CreatePost';
@@ -22,14 +22,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
+      <Router >
           <Route exact path="/" component={Home}></Route>
-          <Route path="/Catagories" component={Catagories}></Route>
-          <Route path="/SingleArticles" component={SingleArticles}></Route>
+          <Route path="/Catagories/:id" component={Catagories}></Route>
           <Route path="/About" component={About}></Route>
           <Route path="/Contact" component={Contact}></Route>
-          <Route path="/Register" component={Register}></Route>
           <Route path="/Login" component={Login}></Route>
+          <Route path="/register" component={Register}></Route>
+          <Route path="/SingleArticles/:id" component={SingleAritical}></Route>
 
           <Route path="/ManagePosts" component={ManagePosts}></Route>
           <Route path="/CreatePost" component={CreatePost}></Route>

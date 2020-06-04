@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import userRouter from './routes/userRoutes';
 import newsRouter from './routes/newsRoutes';
 import { config } from './config/configulation';
@@ -6,7 +7,9 @@ import { config } from './config/configulation';
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 
+app.use('/uploads', express.static('uploads'));
 app.use('/api/v2', userRouter);
 app.use('/api/v2', newsRouter);
 

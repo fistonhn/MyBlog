@@ -19,6 +19,9 @@ CREATE TABLE IF NOT EXISTS news (
   urlToImage VARCHAR(500) NOT NULL,
   author VARCHAR (255) NOT NULL,
   topic VARCHAR (255) NOT NULL,
+  isPublished VARCHAR (255) NOT NULL,
+  place VARCHAR (255) NOT NULL,
+  views VARCHAR (255) NOT NULL,
   createdOn VARCHAR (50) NOT NULL
 );
  `;
