@@ -1,7 +1,6 @@
 # MyBlog
 
-[![Build Status](https://travis-ci.org/fistonhn/MyBlog.svg?branch=master)](https://travis-ci.org/fistonhn/MyBlog)
-[![Coverage Status](https://coveralls.io/repos/github/fistonhn/MyBlog/badge.svg?branch=master)](https://coveralls.io/github/fistonhn/MyBlog?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/b5f5c43031e8390e4425/maintainability)](https://codeclimate.com/github/fistonhn/MyBlog/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b5f5c43031e8390e4425/maintainability)](https://codeclimate.com/github/fistonhn/MyBlog/maintainability)
 
 # Project Overview
 
@@ -56,7 +55,7 @@ MyBlog is a online Newspaper where user can read all local news that have been p
 # Installation
 - Run git clone https://github.com/fistonhn/MyBlog.git
 - Run npm `install` to download and install all packages
-- Run npm `devStart` to start the server
+- Run npm `start` to start the server
 - And then Test the end points using postman or your web browser
 
 # Contributing
