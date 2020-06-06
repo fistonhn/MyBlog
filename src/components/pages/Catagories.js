@@ -1,9 +1,10 @@
 import React from 'react'
 import Axios from 'axios';
+import ReactHtmlParser from 'react-html-parser';
 
 import Header from '../layout/Header'
 import Tab from '../layout/Tab'
-import { Card, Image, Form, Button, Badge, Media, Row, Col, Carousel, CardColumns, Nav } from 'react-bootstrap';
+import { Card, Image, Form, Button, Media, Row, Col, Carousel, CardColumns, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../layout/Footer'
 import igihango2 from '../pictures/DSC_8437.JPG'
@@ -71,43 +72,38 @@ class Catagories extends React.Component {
             
            
             <Row className="generalRow" style={{padding:'1.2% 3% 3%', borderTop:'1px solid #d0d5d8',}} >
-              <Col md={12} lg={9} xs={12}>
+              <Col  style={{ background: '#eee',}} md={12} lg={9} xs={12}>
 
              
 
               {this.state.mainArticle.map((news) => (
 
-              
-
-                   
-
-                             <Nav.Link href={`/SingleArticles/${news.id}/${news.title}`}>
-                                    <Card style={{ width: '100%',border:'none',textAlign:'center', padding:'2% 0%', maxHeight:'52rem', overflow:'hidden'}}>
-                                          <Card.Title className="s1title" ><h1 style={{fontWeight:'1000',color:'black', fontSize:'250%', lineHeight:'117%', textAlignLast:'center', borderBottom:'1px solid #d0d5d8e',}}>
-                                                {news.title}
-                                          </h1></Card.Title>
-                                              <Card.Body>
-                                              <div className="s1subPragraph0" style={{fontStyle: 'oblique' }}>
-                                              <h6 > <i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> yarebwe inshuro {news.views}  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</h6> 
-                                              </div>
-                                              <div style={{ width: '100%', height:'auto', overflow:'hidden', float:'right',marginLeft:'10px'}}>
-                                              <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
-                                              </div>            
-                                      
-                                              <p className="s1Pragraph">
-                                              
-                                              {news.description}
-                                              </p>
-                                              </Card.Body>
-                                              <div className="s1subPragraph" style={{fontStyle: 'oblique' }}>
-                                              <h6 > <medium className="text-muted"> <i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium></h6> 
-                                              <h6 > yanditswe na <i style={{ fontSize: '1rem'}} class="material-icons">person</i> {news.author}</h6> 
-                                              </div>
-                                        </Card>
-                              </Nav.Link>
-                        
-                                
-                           ))}  
+                    <Nav.Link href={`/SingleArticles/${news.id}/${news.title}`}>
+                          <Card style={{ width: '100%',border:'none',textAlign:'center', padding:'2% 0%', maxHeight:'52rem', overflow:'hidden'}}>
+                                <Card.Title className="s1title" ><h1 style={{fontWeight:'1000',color:'black', fontSize:'250%', lineHeight:'117%', textAlignLast:'center', borderBottom:'1px solid #d0d5d8e',}}>
+                                      {news.title}
+                                </h1></Card.Title>
+                                    <Card.Body>
+                                    <div className="s1subPragraph0" style={{fontStyle: 'oblique' }}>
+                                    <h6 style={{ fontSize: '1rem', fontFamily:'roboto'}}  > <i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> yarebwe inshuro {news.views}  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</h6> 
+                                    </div>
+                                    <div style={{ width: '100%', height:'auto', overflow:'hidden', float:'right',marginLeft:'10px'}}>
+                                    <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
+                                    </div>            
+                            
+                                    <p className="s1Pragraph">
+                                    { ReactHtmlParser(news.description) }
+                                    
+                                    </p>
+                                    </Card.Body>
+                                    <div className="s1subPragraph" style={{fontStyle: 'oblique' }}>
+                                    <h6 style={{ fontSize: '1rem', fontFamily:'roboto'}}  > <i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> yarebwe inshuro {news.views}  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</h6> 
+                                    <h6 > yanditswe na <i style={{ fontSize: '1rem'}} class="material-icons">person</i> {news.author}</h6> 
+                                    </div>
+                              </Card>
+                    </Nav.Link>
+                    
+              ))}  
 
 
                     <div  className="advert" style={{padding:'50px', textAlign:'center',}}>
@@ -123,14 +119,17 @@ class Catagories extends React.Component {
                     {this.state.articles.map((news) => (
                         
 
+                       
+                
                         <Card  key={news.id} style={{border:'none',borderRadius:'0px', maxHeight:'auto'}}>
                         <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd" }} href={`/SingleArticles/${news.id}/${news.title}`}>
-                            <div style={{ width: '110%', height:'auto', overflow:'hidden'}}>
-                              <Card.Img  src={`http://localhost:5000/${news.urltoimage}`} />
+      
+                            <div style={{ width: '100%', height:'auto', overflow:'hidden' }}>
+                              <Card.Img fluid src={`http://localhost:5000/${news.urltoimage}`} />
                             </div>
-                               <Card.Title className="hoveringTitle"> {news.title} </Card.Title>
-                          <Card.Text style={{ paddingBottom: '5px', width:'100%'}}>
-                               <medium className="text-muted"><Badge  style={{fontSize:'0.90rem',}} variant="primary">{news.topic}</Badge> | {news.createdon}</medium>
+                            <Card.Title style={{ maxHeight:'72px', overflow:'hidden', minHeight:'72px',}} className="hoveringTitle"> {news.title} </Card.Title>
+                            <Card.Text style={{ paddingBottom: '5px', width:'100%'}}>
+                            <medium  style={{ fontSize: '0.90rem', fontFamily:'roboto'}} className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>  
                             </Card.Text>
                         </Nav.Link>
                       </Card>
@@ -229,14 +228,14 @@ class Catagories extends React.Component {
             
                     <Nav.Link  href={`/SingleArticles/${news.id}/${news.title}`}>
 
-                        <Media  style={part3Style}>
+                        <Media style={part3Style}>
                             <Media.Body>
-                              <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px'}}>{news.title}</h6>    
-                              <medium className="text-muted"><Badge  style={{fontSize:'0.90rem',}} variant="primary">{news.topic}</Badge> | {news.createdon}</medium>            
+                              <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px', maxHeight:'80px', minHeight:'80px', overflow:'hidden'}}> {news.title} </h6>    
+                              <medium className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>            
                             </Media.Body>
-                            <div style={{ width: '35%', height:'auto', overflow:'hidden'}}>
+                            <div style={{ width: '37%', height:'auto', overflow:'hidden'}}>
                               <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
-                            </div>                     
+                            </div>
                         </Media>
                     </Nav.Link>
               

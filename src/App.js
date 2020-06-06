@@ -8,6 +8,7 @@ import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import SingleAritical from './components/pages/SingleAritical';
 
+import UnpublishedPosts from './components/pages/admin/UnpublishedPosts';
 import ManagePosts from './components/pages/admin/ManagePosts';
 import CreatePost from './components/pages/admin/CreatePost';
 import ManageTopics from './components/pages/admin/ManageTopics';
@@ -31,6 +32,7 @@ class App extends React.Component {
           <Route path="/register" component={Register}></Route>
           <Route path="/SingleArticles/:id" component={SingleAritical}></Route>
 
+          <Route path="/UnpublishedPosts" component={UnpublishedPosts}></Route>
           <Route path="/ManagePosts" component={ManagePosts}></Route>
           <Route path="/CreatePost" component={CreatePost}></Route>
           <Route path="/ManageTopics" component={ManageTopics}></Route>

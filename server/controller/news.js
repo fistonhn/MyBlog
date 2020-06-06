@@ -58,15 +58,28 @@ const getAllNews = async (req, res) => {
     data,
   });
 };
+const getAllUnPublishNews = async (req, res) => {
+
+
+  const unPublishNews = await pool.query(query.getAllUnPublishNews());
+
+  if (unPublishNews.rowCount > 0) {
+    res.status(200).json({ status: 200, data: unPublishNews.rows });
+  } else {
+    res.status(404).json({ status: 404, message: 'No news to display' });
+  }
+};
 const getOneNews = async (req, res) => {
 
 
   const { id } = req.params;
   const singleNews = await pool.query(query.getSpecificNews(id));
 
-  let views = singleNews.rows[0].views
+  let counter = singleNews.rows[0].views
 
-  views++;
+  counter++;
+
+  const views = counter
 
    await pool.query(query.updateViews(views, id));
 
@@ -278,6 +291,6 @@ const getMainByTopic = async (req, res) => {
 
 
 
-export { createNews, getAllNews, getAllRelatedNews, getOneNews, updateNews, deleteNews, getMainByTopic,
+export { createNews, getAllNews, getAllUnPublishNews, getAllRelatedNews, getOneNews, updateNews, deleteNews, getMainByTopic,
   getNyamukuruNews, getNyamukuruMainNews, getSportNews, getSportMainNews, getUtuntuNutundiMainNews, getUtuntuNutundiNews
 ,getUtuntuNutundiNewsMostViews, bestNews, udushya };

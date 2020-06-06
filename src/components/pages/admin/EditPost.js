@@ -3,9 +3,8 @@ import Axios from 'axios';
 import LogoutHeader from '../../layout/LogoutHeader'
 import Footer from '../../layout/Footer'
 import { Col, Row, ListGroup, Button, Form } from 'react-bootstrap';
-import 'jodit';
-import 'jodit/build/jodit.min.css';
-import JoditEditor from "jodit-react";
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const listStyle={
@@ -27,6 +26,7 @@ class EditPost extends React.Component {
         success: false,
         responseMessage:''
       }
+      
     
       onPatchTitle = e => {
         this.setState({ 
@@ -37,7 +37,7 @@ class EditPost extends React.Component {
 
 
       onPatchDescription = (value) => {
-        this.setState({description:value})
+        this.setState({description:value.getData()})
     }
 
       
@@ -70,12 +70,16 @@ class EditPost extends React.Component {
         Axios.patch(`http://localhost:5000/api/v2/news/${this.props.editSpecificNews.id}`, news, config)
           .then(res => {
               console.log(res.data)
+              
+              alert.show('Oh look, an alert!')
             if(res.data.status === 200) {
                 this.setState({ success: true, responseMessage:res.data.message })
               }
             
           })
           .catch(err => {
+
+           
               if(err.response) {
                
                 console.log(err.response.data)
@@ -83,12 +87,7 @@ class EditPost extends React.Component {
           });
       }
 
-      jodit;
-	setRef = jodit => this.jodit = jodit;
 
-      config = {
-		readonly: false 
-	}
 
   render() { 
    
@@ -129,12 +128,21 @@ class EditPost extends React.Component {
                         <div className="App">
                             <h6 style={{ fontFamily:"roboto",  overflow:'hidden',}}>Body</h6>
 
-                            <JoditEditor
+                            {/* <JoditEditor
                                 editorRef={this.setRef}
                                 value={this.props.editSpecificNews.description}
                                 config={this.config}
                                 onChange={this.onPatchDescription}
-                            />
+                            /> */}
+                            <CKEditor
+
+                                editor={ ClassicEditor }
+                                data={this.props.editSpecificNews.description}
+                                onChange={ ( event, editor ) => {
+                                    this.onPatchDescription(editor)
+
+                                } }           
+                            /> 
                         </div>
                         <Form.Label><h6 style={{ fontFamily:"roboto",  overflow:'hidden',}}>Author</h6></Form.Label>
                         <Form.Control defaultValue={this.props.editSpecificNews.author} onChange={this.onPatchAuthor} />

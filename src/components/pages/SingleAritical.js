@@ -1,8 +1,9 @@
 import React from 'react'
 import Axios from 'axios'
+import ReactHtmlParser from 'react-html-parser';
 import Header from '../layout/Header'
 import Tab from '../layout/Tab'
-import { Card, Image, Form, Button, Badge, Media, Row, Col, Nav } from 'react-bootstrap';
+import { Card, Image, Form, Button, Media, Row, Col, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from '../layout/Footer'
 
@@ -80,11 +81,11 @@ class SingleAritical extends React.Component {
             <Tab /> 
             
            
-            <Row className="generalRow" style={{padding:'1.2% 3% 3%', borderTop:'1px solid #d0d5d8',}} >
+            <Row className="generalRow" style={{padding:'1.2% 7% 7%', borderTop:'1px solid #d0d5d8',}} >
               <Col lg={9} md={12} xs={12}>
 
-              <Card  style={{ textAlign:'center',border:'none', }}>
-              <Card.Title className="s1title" ><h1 style={{fontWeight:'1000',color:'black', fontSize:'250%', lineHeight:'117%', textAlignLast:'center', borderBottom:'1px solid #d0d5d8e',}}>
+              <Card  style={{ border:'none', }}>
+              <Card.Title style={{ textAlign:'center',border:'none', }} className="s1title" ><h1 style={{fontWeight:'1000',color:'black', fontSize:'250%', lineHeight:'117%', textAlignLast:'center', borderBottom:'1px solid #d0d5d8e',}}>
 
               {this.state.news.title}   
             
@@ -92,14 +93,15 @@ class SingleAritical extends React.Component {
                     <div  style={{ width: '100%', height:'auto', overflow:'hidden'}}>
                         <Image src={`http://localhost:5000/${this.state.news.urltoimage}`} fluid/>
                     </div> 
-                    <p  style={{  paddingTop:'10px' }}>
-                    {this.state.news.description}
-                    </p>
-                    <div style={{fontStyle: 'oblique' }}>
-                        <h6 > <medium className="text-muted"> <i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {this.state.news.views} views  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {this.state.news.createdon}</medium></h6> 
-                        <h6 > yanditswe na <i style={{ fontSize: '1rem'}} class="material-icons">person</i> {this.state.news.author}</h6> 
+                    <Card.Text  style={{  paddingTop:'10px', padding:'2%'}}>
+                    { ReactHtmlParser(this.state.news.description) }
+                    
+                    </Card.Text>
+                    <div style={{fontStyle: 'oblique', textAlign:'center', }}>
+                       <h6 style={{ fontSize: '1rem', fontFamily:'roboto'}}  > <i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> yarebwe inshuro {this.state.news.views}  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {this.state.news.createdon}</h6> 
+                       <h6 > yanditswe na <i style={{ fontSize: '1rem'}} class="material-icons">person</i> {this.state.news.author}</h6> 
                     </div>
-                    <div  style={{color:'black', fontSize:'2rem', width:'100%'}}> <i class="fa fa-facebook"></i> <i class="fa fa-youtube"></i> <i class="fa fa-instagram"></i></div>
+                    <div  style={{color:'black', fontSize:'2rem', width:'100%', textAlign:'center',}}> <i class="fa fa-facebook"></i> <i class="fa fa-youtube"></i> <i class="fa fa-instagram"></i></div>
                   </Card>
 
               </Col>
@@ -116,15 +118,15 @@ class SingleAritical extends React.Component {
                 
                 <div  onClick={this.reloadLocation}>
                     
-                    <Nav.Link  href={`/SingleArticles/${news.id}/${news.title}`}>
-                        <Media  style={part3Style}>
+                    <Nav.Link style={{ padding:'0px'}}   href={`/SingleArticles/${news.id}/${news.title}`}>
+                        <Media style={part3Style}>
                             <Media.Body>
-                              <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px'}}>{news.title}</h6>    
-                              <medium className="text-muted"><Badge  style={{fontSize:'0.90rem',}} variant="primary">{news.topic}</Badge> | {news.createdon}</medium>            
+                              <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px', maxHeight:'80px', minHeight:'80px', overflow:'hidden'}}> {news.title} </h6>    
+                              <medium className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>            
                             </Media.Body>
-                            <div style={{ width: '35%', height:'auto', overflow:'hidden'}}>
+                            <div style={{ width: '37%', height:'auto', overflow:'hidden'}}>
                               <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
-                            </div>                     
+                            </div>
                         </Media>
                     </Nav.Link>
                 </div>

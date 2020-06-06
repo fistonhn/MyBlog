@@ -2,13 +2,10 @@ import React from 'react';
 import Axios from 'axios';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router';        
 import LogoutHeader from '../../layout/LogoutHeader';
 import Footer from '../../layout/Footer';
-import { Col, Row, ListGroup, Button, Form } from 'react-bootstrap';
-import 'jodit';
-import 'jodit/build/jodit.min.css';
-import JoditEditor from "jodit-react";
+import { Col, Row, ListGroup, Button, Form, } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const listStyle={
@@ -41,12 +38,8 @@ class CreatePost extends React.Component {
         });
       }
    
-    //   onCreateDescription = (value) => {
-    //     this.setState({description:value.getData()})
-    // }
-
-    onCreateDescription = (value) => {
-        this.setState({description:value})
+      onCreateDescription = (value) => {
+        this.setState({description:value.getData()})
     }
 
        onCreateUrlToImage = e => {
@@ -95,6 +88,7 @@ class CreatePost extends React.Component {
         Axios.post(`http://localhost:5000/api/v2/news`, data, config)
           .then(res => {
             if(res.data.status === 201) {
+                setTimeout(() => this.setState({ fireRedirect: true }), 3000)
                 this.setState({ fireRedirect: true })
               }else if(res.data.error){
                   this.setState({
@@ -111,11 +105,27 @@ class CreatePost extends React.Component {
           });
       }
 
-      config = {
-		readonly: false 
-	}
 
   render() { 
+
+
+    // if(this.state.fireRedirect === true) {
+
+    //     return (
+           
+    //       <Alert variant="danger"  dismissible>
+    //         <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+    //         <p>
+    //           Change this and that and try again. Duis mollis, est non commodo
+    //           luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+    //           Cras mattis consectetur purus sit amet fermentum.
+    //         </p>
+    //       </Alert>
+    //     );
+      
+    // }
+
+
     if(this.state.fireRedirect) {
         return <Redirect to={'/ManagePosts'}/>
     }
@@ -153,21 +163,19 @@ class CreatePost extends React.Component {
                         <div className="App">
                             <h6 style={{marginTop:'15px', fontFamily:"roboto"}}>Body</h6>
                            
-
-                            <JoditEditor
-                                editorRef={this.setRef}
-                                value={this.state.content}
-                                config={this.config}
-                                onChange={this.onCreateDescription}
-                            />
-
-                                                       
+                                 
                              <CKEditor
-                                config={ {
-                                    enterMode : CKEditor.ENTER_BR
-                                } }
 
                                 editor={ ClassicEditor }
+
+                                config={
+                                  {  
+                                      ckfinder:{
+                                          uploadUrl:'../news/'
+                                    }
+                                  }
+                                }
+
                                 onChange={ ( event, editor ) => {
                                     this.onCreateDescription(editor)
 

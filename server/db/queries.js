@@ -33,7 +33,12 @@ const query = {
   }),
 
   getAllOfNews: () => ({
-    text: `SELECT n.* FROM news n ORDER BY n.createdOn DESC`,
+    text: `SELECT n.* FROM news n ORDER BY n.createdOn DESC `,
+    values: [],
+  }),
+
+  getAllUnPublishNews: () => ({
+    text: `SELECT n.* FROM news n WHERE n.isPublished = 'Publish' ORDER BY n.createdOn DESC `,
     values: [],
   }),
 

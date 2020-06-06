@@ -23,7 +23,7 @@ const config = {
 }
 
 
-class ManagePosts extends React.Component {
+class UnpublishedPosts extends React.Component {
 state = {
 
     articles: [],
@@ -37,7 +37,7 @@ state = {
 // display all post to admin page..........
 
   componentDidMount() {
-    Axios.get('http://localhost:5000/api/v2/news', config)
+    Axios.get('http://localhost:5000/api/v2/news/unpublished', config)
     .then(res => this.setState({ articles: res.data.data }))
     .catch(err => {
         if(err.response) {
@@ -198,8 +198,8 @@ state = {
                         Add post
                         </Button>{' '}
                        
-                        <Button action href="/UnpublishedPosts"  variant="primary" size="md" >
-                          UnPublished posts
+                        <Button action href="/ManagePosts" variant="primary" size="md">
+                         Manage posts
                         </Button>
                       
                     </div>
@@ -252,4 +252,4 @@ state = {
  }
 }
 
-export default ManagePosts
+export default UnpublishedPosts

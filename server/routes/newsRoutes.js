@@ -2,7 +2,7 @@ import express from 'express';
 import { verifyAuthToken, verifyAdminToken } from '../middleware/verifyAuthToken';
 import validateParams from '../middleware/paramsValidation';
 import { validateNewsCreated } from '../middleware/newsInputValidation';
-import { createNews, getAllNews, getOneNews, updateNews, deleteNews, getAllRelatedNews, getMainByTopic,
+import { createNews, getAllNews, getAllUnPublishNews, getOneNews, updateNews, deleteNews, getAllRelatedNews, getMainByTopic,
     getNyamukuruNews, getNyamukuruMainNews, getSportNews, getSportMainNews, getUtuntuNutundiNews, getUtuntuNutundiMainNews
 ,getUtuntuNutundiNewsMostViews, bestNews, udushya } from '../controller/news';
 import upload from '../middleware/upload';
@@ -12,6 +12,7 @@ const router = express.Router();
 
 router.post('/news', [ verifyAuthToken, upload, validateNewsCreated], createNews);
 router.get('/news', getAllNews);
+router.get('/news/unpublished', getAllUnPublishNews);
 router.get('/news/:id', [validateParams], getOneNews);
 router.patch('/news/:id', [validateParams, verifyAdminToken], updateNews);
 router.delete('/news/:id', [validateParams, verifyAdminToken], deleteNews);

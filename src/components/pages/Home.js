@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import ReactHtmlParser from 'react-html-parser';
 
 import Header from '../layout/Header'
 import Tab from '../layout/Tab'
@@ -26,7 +27,8 @@ import KBCwesternUNION from '../pictures/advert/KBCwesternUNION.gif'
 
 const part3Style= {
   borderBottom:'1px solid #d0d5d8',
-  padding:'20px 0',
+  padding:'20px 15px',
+  background :'#fff',
 
 }
 
@@ -134,8 +136,8 @@ class Home extends React.Component {
               <img alt="MTN-AYOBA" src={AyobaBig}/>
             </div>
 
-            <Row className="generalRow" style={{padding:'1.2% 3% 3%', borderTop:'1px solid #d0d5d8',}} >
-              <Col lg={9} xs={12}>
+            <Row className="generalRow" style={{padding:'1.2% 3% 3%', borderTop:'1px solid #d0d5d8'}} >
+              <Col lg={9} xs={12}   style={{ background: '#eee',}}>
                   
               {this.state.mainNyamukuru.map((news) => (
 
@@ -147,19 +149,19 @@ class Home extends React.Component {
                       </h1></Card.Title> 
                         <Card.Body>
                         <div className="s1subPragraph0" style={{fontStyle: 'oblique' }}>
-                          <h6 > <i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> yarebwe inshuro 50  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</h6> 
+                          <h6 style={{ fontSize: '1rem', fontFamily:'roboto'}}  > <i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> yarebwe inshuro {news.views}  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</h6> 
                         </div>
                         <div style={{ width: '100%', height:'auto', overflow:'hidden', float:'right',marginLeft:'10px'}}>
                           <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
                         </div>            
                   
                           <p className="s1Pragraph">
-                        {news.description}                     
+                          { ReactHtmlParser(news.description) }                
                           </p>
                         </Card.Body>                                                     
                         <div className="s1subPragraph" style={{fontStyle: 'oblique' }}>
-                          <h6 > <medium className="text-muted"> <i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> yarebwe inshuro 50  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium></h6> 
-                          <h6 > yanditswe na  {news.author}</h6> 
+                        <h6 style={{ fontSize: '1rem', fontFamily:'roboto'}}  > <i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> yarebwe inshuro {news.views}  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</h6> 
+                        <h6 > yanditswe na <i style={{ fontSize: '1rem'}} class="material-icons">person</i> {news.author}</h6>  
                         </div>
 
                     </Card>
@@ -184,13 +186,14 @@ class Home extends React.Component {
             
 
                 <Card  key={news.id} style={{border:'none',borderRadius:'0px', maxHeight:'auto'}}>
-                  <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd" }} href={`/SingleArticles/${news.id}/${news.title}`}>
-                      <div style={{ width: '110%', height:'auto', overflow:'hidden'}}>
-                        <Card.Img  src={`http://localhost:5000/${news.urltoimage}`} />
+                  <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd", }} href={`/SingleArticles/${news.id}/${news.title}`}>
+
+                      <div style={{ width: '100%', height:'auto', overflow:'hidden' }}>
+                        <Card.Img fluid src={`http://localhost:5000/${news.urltoimage}`} />
                       </div>
-                         <Card.Title className="hoveringTitle"> {news.title} </Card.Title>
-                    <Card.Text style={{ paddingBottom: '5px', width:'100%'}}>
-                         <medium className="text-muted"><Badge  style={{fontSize:'0.90rem',}} variant="primary">{news.topic}</Badge> | {news.createdon}</medium>
+                      <Card.Title style={{ maxHeight:'72px', overflow:'hidden', minHeight:'72px',}} className="hoveringTitle"> {news.title} </Card.Title>
+                      <Card.Text style={{ paddingBottom: '5px', width:'100%'}}>
+                        <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><Badge  style={{fontSize:'0.90rem', fontFamily:'roboto'}} variant="primary">{news.topic}</Badge> |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium>
                       </Card.Text>
                   </Nav.Link>
                 </Card>
@@ -279,21 +282,21 @@ class Home extends React.Component {
         {/* section 3 which contain SPORT NEWS */}
 
         <h5 style={{borderBottom:'1px solid black', padding:'2px 10px', margin:'50px 0px 0px', fontFamily:"roboto", background:'#f8f9fa', fontStyle:'italic'}}>Amakuru ya Siporo</h5>    
-                <Row style={{columnGap:'50px',}}>        
+                <Row >        
                   <Col lg={5} md={5} xs={12} >
                   {this.state.sport.map((news) => (
                    
-                        <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd" }} href={`/SingleArticles/${news.id}/${news.title}`}>
+                        <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd", padding:'0px' }} href={`/SingleArticles/${news.id}/${news.title}`}>
 
-                        <Media style={part3Style}>                     
-                              <Media.Body>
-                                <h5 style={{fontSize:'1.2rem', fontWeight:'700', letterSpacing:'.2px', lineHeight: '25px'}} className="hoveringTitle">{news.title} </h5>    
-                                <medium style={{fontSize:'1.1rem', fontStyle:'italic', fontWeight:'700'}} className="text-muted"><Badge  style={{fontWeight:'700', fontSize:'1.1rem', fontStyle:'italic'}} variant="primary">{news.topic}</Badge> {news.createdon}</medium>             
-                              </Media.Body>
-                              <div style={{ width: '120px', height:'100px', overflow:'hidden'}}>
-                                <Image  src={`http://localhost:5000/${news.urltoimage}`}  fluid/>
-                              </div>                      
-                        </Media>
+                            <Media style={part3Style}>                     
+                                  <Media.Body>
+                                    <h5 style={{maxHeight:'80px', overflow:'hidden', minHeight:'80px', fontSize:'1.2rem', fontWeight:'700', letterSpacing:'.2px', lineHeight: '25px'}} className="hoveringTitle">{news.title} </h5>    
+                                    <medium style={{ fontFamily:'roboto'}} className="text-muted"><i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>             
+                                  </Media.Body>
+                                  <div style={{ width: '130px', height:'100px', overflow:'hidden'}}>
+                                    <Image  src={`http://localhost:5000/${news.urltoimage}`}  fluid/>
+                                  </div>                      
+                            </Media>
                         </Nav.Link>
                    
                   ))}  
@@ -304,15 +307,15 @@ class Home extends React.Component {
                 {this.state.mainSport.map((news) => (
 
                   <Card style={{ border:'none', padding:'20px 2px', overflow:'hidden' }}>
-                      <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd" }} href={`/SingleArticles/${news.id}/${news.title}`}>
+                      <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd", }} href={`/SingleArticles/${news.id}/${news.title}`}>
 
                         <div style={{ width: '100%', height:'auto', overflow:'hidden', }}>
                             <Image  src={`http://localhost:5000/${news.urltoimage}`}  fluid/>
                         </div>
                         <Card.Title className="hoveringTitle" style={{ paddingTop:'5px', fontSize:'2rem', fontWeight:'700' }}>{news.title}</Card.Title>
-                        <medium style={{fontSize:'1.1rem', fontStyle:'italic', fontWeight:'700'}} className="text-muted"><Badge  style={{fontWeight:'700', fontSize:'1.1rem', fontStyle:'italic'}} variant="primary">{news.topic}</Badge> {news.createdon}</medium>     
-                        <Card.Text  style={{ maxHeight:'140px',overflow: 'hidden', paddingTop:'10px' }}>
-                        {news.description}
+                        <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><Badge  style={{fontSize:'0.90rem', fontFamily:'roboto'}} variant="primary">{news.topic}</Badge> |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium>               
+                        <Card.Text  style={{ maxHeight:'182px',overflow: 'hidden', paddingTop:'10px' }}>
+                        { ReactHtmlParser(news.description) }
                         </Card.Text>
                     </Nav.Link>
                   </Card>
@@ -341,9 +344,9 @@ class Home extends React.Component {
                             <div style={{ width: '100%', height:'auto', overflow:'hidden'}}>
                               <Card.Img src={`http://localhost:5000/${news.urltoimage}`} />
                             </div>
-                            <Card.Title className="hoveringTitle" style={{ paddingTop: '10px', fontSize:'1.3rem', fontWeight:'700', letterSpacing:'.2px', lineHeight: '25px'}}>{news.title}</Card.Title>
+                            <Card.Title className="hoveringTitle" style={{ overflow:'hidden', maxHeight:'83px', minHeight:'83px',paddingTop: '10px', fontSize:'1.3rem', fontWeight:'700', letterSpacing:'.2px', lineHeight: '25px'}}>{news.title}</Card.Title>
                             <Card.Text style={{ paddingBottom: '5px'}}>
-                            <medium className="text-muted"><Badge  style={{fontSize:'0.90rem'}} variant="primary">{news.topic}</Badge> Updated | {news.createdon}</medium>
+                            <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><Badge  style={{fontSize:'0.90rem', fontFamily:'roboto'}} variant="primary">{news.topic}</Badge> |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium> 
                             </Card.Text>
                         </Nav.Link>
                       </Card>
@@ -362,7 +365,7 @@ class Home extends React.Component {
                         {news.title}</h1>
                         </Card.Title>
                         <Card.Text style={{ paddingBottom: '5px',  textAlign:'center',}}>
-                        <medium className="text-muted"><Badge  style={{fontSize:'0.90rem',}} variant="primary">{news.topic}</Badge> Updated | {news.createdon}</medium>
+                        <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><Badge  style={{fontSize:'0.90rem', fontFamily:'roboto'}} variant="primary">{news.topic}</Badge> |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium> 
                         </Card.Text>
                         <div style={{ width: '100%', height:'auto', overflow:'hidden'}}>
                           <Card.Img src={`http://localhost:5000/${news.urltoimage}`}/>
@@ -374,12 +377,12 @@ class Home extends React.Component {
                   <CardColumns style={{ marginTop: '20px', columnCount:'2', columnGap: '0.75rem'}}>
 
                   {this.state.viewsUtuntuNutundi.map((news) => (  
-                      <Card style={{border:'none' ,borderRight:'1px solid #828282', borderRadius:'0px'}}>
+                      <Card style={{border:'none' ,borderRight:'1px solid #828282', borderRadius:'0px', maxHeight:'300px', }}>
                           <Nav.Link style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd" }} href={`/SingleArticles/${news.id}/${news.title}`}>
 
-                              <h6 className="hoveringTitle" style={{fontSize:'1.3rem', paddingRight:'5px'}}>{news.title}</h6>
+                              <h6 className="hoveringTitle" style={{fontSize:'1.3rem', paddingRight:'5px', maxHeight:'101px', minHeight:'101px', overflow:'hidden', textOverflow: 'ellipsis'}}>{news.title}</h6>
                               <Card.Text  style={{ paddingBottom: '5px'}}>
-                              <medium className="text-muted">Last updated {news.createdon}</medium>
+                              <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium> 
                               </Card.Text>
                           </Nav.Link>
                       </Card>
@@ -402,14 +405,14 @@ class Home extends React.Component {
 
               {this.state.bestNews.map((news) => ( 
                 
-                <Nav.Link  href={`/SingleArticles/${news.id}/${news.title}`}>
+                <Nav.Link  style={{ padding:'0px'}}  href={`/SingleArticles/${news.id}/${news.title}`}>
 
                      <Media style={part3Style}>
                           <Media.Body>
-                            <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px'}}> {news.title} </h6>    
-                            <medium className="text-muted"><Badge  style={{fontSize:'0.90rem',}} variant="primary">{news.topic}</Badge> | {news.createdon} </medium>            
+                            <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px', maxHeight:'80px', minHeight:'80px', overflow:'hidden'}}> {news.title} </h6>    
+                            <medium className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>            
                           </Media.Body>
-                          <div style={{ width: '35%', height:'auto', overflow:'hidden'}}>
+                          <div style={{ width: '37%', height:'auto', overflow:'hidden'}}>
                             <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
                           </div>
                       </Media>
@@ -457,17 +460,16 @@ class Home extends React.Component {
 
                 {this.state.udushya.map((news) => (  
 
-                    <Nav.Link  href={`/SingleArticles/${news.id}/${news.title}`}>
+                    <Nav.Link style={{ padding:'0px'}} href={`/SingleArticles/${news.id}/${news.title}`}>
 
-                     <Media style={part3Style}>                      
-                            <Media.Body>
-                              <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px'}}>{news.title}</h6>    
-                              <medium className="text-muted"><Badge  style={{fontSize:'0.90rem',}} variant="primary">{news.topic}</Badge> | {news.createdon} </medium>            
-                            </Media.Body>
-                            <div style={{ width: '35%', height:'auto', overflow:'hidden'}}>
-                              <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
-                            </div>
-                        
+                      <Media style={part3Style}>
+                          <Media.Body>
+                            <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px', maxHeight:'80px', minHeight:'80px', overflow:'hidden'}}> {news.title} </h6>    
+                            <medium className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>            
+                          </Media.Body>
+                          <div style={{ width: '37%', height:'auto', overflow:'hidden'}}>
+                            <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
+                          </div>
                       </Media>
                     </Nav.Link>  
                 ))} 
