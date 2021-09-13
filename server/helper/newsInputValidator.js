@@ -1,14 +1,14 @@
 import Joi from '@hapi/joi';
 
-
 const newsCreated = (req) => {
   const schema = {
+    topic: Joi.string().required(),
     title: Joi.string().required().min(3).max(300),
     description: Joi.string().required().min(5),
     urlToImage: Joi.string(),
     author: Joi.string().required(),
-    topic: Joi.string().required(),
-    isPublished: Joi.string().required(),
+    category: Joi.string().required(),
+    isPublished: Joi.boolean().required(),
     place: Joi.string().required(),
   };
 

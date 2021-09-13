@@ -13,5 +13,4 @@ const generateToken = (id, email, isAdmin) => {
   return token;
 };
 
-
 export { generateToken };

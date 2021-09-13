@@ -1,20 +1,25 @@
-import React from 'react'
-import Header from '../layout/Header'
-import Tab from '../layout/Tab'
-import Footer from '../layout/Footer'
+import React from 'react';
 import { Form, Col, Button, Row } from 'react-bootstrap';
+import SmallTab from '../layout/SmallTab';
+import Header from '../layout/Header';
+import Tab from '../layout/Tab';
+import Footer from '../layout/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function Contact() {
-    return (
+  return (
         <div>
-            <Header /> 
-            <Tab /> 
-            <Row style={{padding:'5% 8%'}} className="listAdress">
+           <div className="advert">
+           <SmallTab />
+           </div>
+            <div className="advert">
+            <Header />
+           </div>
+            <Tab />
+            <Row style={{ padding: '5% 8%' }} className="listAdress">
                 <Col>
-                <Form  >
-                <h3 style={{marginBottom:'5%'}}>Contact us</h3>
+                <Form >
+                <h3 style={{ marginBottom: '5%' }}>Contact us</h3>
                     <Form.Row>
                         <Col>
                             <Form.Label>Names</Form.Label>
@@ -35,27 +40,25 @@ function Contact() {
                         <Form.Label>Message</Form.Label>
                         <Form.Control as="textarea" rows="4" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button style={{ marginTop: '2%' }} variant="primary" type="submit">
                         Send message
                     </Button>
                 </Form>
                 </Col>
-                <Col  style={{paddingRight:'8%', marginTop:'11%'}} xs lg="4">
-                   <h6 style={{borderBottom: '2px solid #007bff', display:'inlineBlock', color:'#007bff'}}>Phone number </h6>
+                <Col style={{ paddingRight: '8%', marginTop: '11%' }} xs lg="4">
+                   <h6 style={{ borderBottom: '2px solid #007bff', display: 'inlineBlock', color: '#007bff' }}>Phone number </h6>
                    <p>
-                    <div>EricSEBA: +250788239598 </div>
                     <div>HnFiston: +250784277345</div>
                    </p>
-                   <h6 style={{borderBottom: '2px solid #007bff', display:'inlineBlock', color:'#007bff'}}>Email </h6>
+                   <h6 style={{ borderBottom: '2px solid #007bff', display: 'inlineBlock', color: '#007bff' }}>Email </h6>
                    <p>
-                   <div> EricSEBA: ericseba2016@gmail.com </div>
                    <div> HnFiston: fistonhn@gmail.com </div>
                    </p>
                 </Col>
             </Row>
-            <Footer />  
+            <Footer />
         </div>
-    )
+  );
 }
 
-export default Contact
+export default Contact;

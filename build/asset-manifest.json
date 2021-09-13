@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/static/css/main.463e9664.chunk.css",
+    "main.js": "/static/js/main.c975912b.chunk.js",
+    "main.js.map": "/static/js/main.c975912b.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.104e427e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.104e427e.js.map",
+    "static/css/2.d45d6843.chunk.css": "/static/css/2.d45d6843.chunk.css",
+    "static/js/2.20bab786.chunk.js": "/static/js/2.20bab786.chunk.js",
+    "static/js/2.20bab786.chunk.js.map": "/static/js/2.20bab786.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.d45d6843.chunk.css.map": "/static/css/2.d45d6843.chunk.css.map",
+    "static/css/main.463e9664.chunk.css.map": "/static/css/main.463e9664.chunk.css.map",
+    "static/js/2.20bab786.chunk.js.LICENSE.txt": "/static/js/2.20bab786.chunk.js.LICENSE.txt",
+    "static/media/4g.c5889c38.webp": "/static/media/4g.c5889c38.webp",
+    "static/media/DSC_8437.5c0819d6.JPG": "/static/media/DSC_8437.5c0819d6.JPG",
+    "static/media/Euronews.547f5048.gif": "/static/media/Euronews.547f5048.gif",
+    "static/media/KBCwesternUNION.a9de86b6.gif": "/static/media/KBCwesternUNION.a9de86b6.gif",
+    "static/media/MKENYA.bbd47b17.jpg": "/static/media/MKENYA.bbd47b17.jpg",
+    "static/media/RIBguhohotera.14db0abf.gif": "/static/media/RIBguhohotera.14db0abf.gif",
+    "static/media/addresiya_web.1c7f0df3.gif": "/static/media/addresiya_web.1c7f0df3.gif",
+    "static/media/aitel-rwanda.171034d7.gif": "/static/media/aitel-rwanda.171034d7.gif",
+    "static/media/corona.3ef05265.gif": "/static/media/corona.3ef05265.gif",
+    "static/media/cucinaRESTAURENT.a8bc2553.gif": "/static/media/cucinaRESTAURENT.a8bc2553.gif",
+    "static/media/igihango.800c39ab.png": "/static/media/igihango.800c39ab.png",
+    "static/media/mtn-banner-04-20.dd27fa77.gif": "/static/media/mtn-banner-04-20.dd27fa77.gif",
+    "static/media/mtnyoba.fa985013.gif": "/static/media/mtnyoba.fa985013.gif",
+    "static/media/police.82d3edef.gif": "/static/media/police.82d3edef.gif",
+    "static/media/startimesSMALL.54719d80.gif": "/static/media/startimesSMALL.54719d80.gif",
+    "static/media/unicafBIG.4100bb13.jpg": "/static/media/unicafBIG.4100bb13.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.104e427e.js",
+    "static/css/2.d45d6843.chunk.css",
+    "static/js/2.20bab786.chunk.js",
+    "static/css/main.463e9664.chunk.css",
+    "static/js/main.c975912b.chunk.js"
+  ]
+}

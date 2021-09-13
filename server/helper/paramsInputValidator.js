@@ -7,5 +7,4 @@ const validateParamsId = (req) => {
   return Joi.validate(req.params, schema);
 };
 
-
 export default validateParamsId;

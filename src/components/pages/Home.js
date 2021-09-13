@@ -1,492 +1,468 @@
 import React from 'react';
 import Axios from 'axios';
+import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
 
-import Header from '../layout/Header'
-import Tab from '../layout/Tab'
+import { Col, Row, Media, Card, Image, Button, Badge, Form, Nav } from 'react-bootstrap';
+import Header from '../layout/Header';
+import Tab from '../layout/Tab';
+import SmallTab from '../layout/SmallTab';
 import Footer from '../layout/Footer';
-import { Col, Row, Media, Card, Carousel, Image, Button, CardColumns, Badge, Form, Nav  } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ADSphotographer from '../pictures/ADSphotographer.gif';
 
-import igihango2 from '../pictures/DSC_8437.JPG'
-import addresiya from '../pictures/advert/addresiya_web.gif'
-import AyobaBig from '../pictures/advert/mtn-banner-04-20.gif'
-import unicafBIG from '../pictures/advert/unicafBIG.jpg'
-import aitel from '../pictures/advert/aitel-rwanda.gif'
-import corona from '../pictures/advert/corona.gif'
-import RIBguhohotera from '../pictures/advert/RIBguhohotera.gif'
-import Euronews from '../pictures/advert/Euronews.gif'
-import police from '../pictures/advert/police.gif'
-import fourG from '../pictures/advert/4g.webp'
-import mtnyoba from '../pictures/advert/mtnyoba.gif'
-import startimesSMALL from '../pictures/advert/startimesSMALL.gif'
-import MKENYA from '../pictures/advert/MKENYA.jpg'
-import KBCwesternUNION from '../pictures/advert/KBCwesternUNION.gif'
+import addresiya from '../pictures/advert/addresiya_web.gif';
+import AyobaBig from '../pictures/advert/mtn-banner-04-20.gif';
+import unicafBIG from '../pictures/advert/unicafBIG.jpg';
+import aitel from '../pictures/advert/aitel-rwanda.gif';
+import corona from '../pictures/advert/corona.gif';
+import RIBguhohotera from '../pictures/advert/RIBguhohotera.gif';
+import Euronews from '../pictures/advert/Euronews.gif';
+import police from '../pictures/advert/police.gif';
+import fourG from '../pictures/advert/4g.webp';
+import startimesSMALL from '../pictures/advert/startimesSMALL.gif';
+import MKENYA from '../pictures/advert/MKENYA.jpg';
 
+const part3Style = {
+  borderBottom: '1px solid #d0d5d8',
+  padding: '20px 15px',
+  background: '#fff',
 
-const part3Style= {
-  borderBottom:'1px solid #d0d5d8',
-  padding:'20px 15px',
-  background :'#fff',
-
-}
-
-// nyamukuru news
-function getMainNyamukuru() {
-  return Axios.get('http://localhost:5000/api/v2/articles/nyamukuru/main');
-}
-
-function getNyamukuru() {
-  return Axios.get('http://localhost:5000/api/v2/articles/nyamukuru');
-}
-
-
-// sport news
-function getMainSport() {
-  return Axios.get('http://localhost:5000/api/v2/articles/sport/main');
-}
-
-function getSport() {
-  return Axios.get('http://localhost:5000/api/v2/articles/sport');
-}
-
-
- // utuntu nutundi news
- function getMainUtuntuNutundi() {
-  return Axios.get('http://localhost:5000/api/v2/articles/utuntuNutundi/main');
-}
-
-function getViewsUtuntuNutundi() {
-  return Axios.get('http://localhost:5000/api/v2/articles/utuntuNutundi/views');
-}
-
-function getUtuntuNutundi() {
-  return Axios.get('http://localhost:5000/api/v2/articles/utuntuNutundi');
-}
-
-
-// bestNews & udushya
-function bestNews() {
-  return Axios.get('http://localhost:5000/api/v2/articles/bestNews');
-}
-
-function udushya() {
-  return Axios.get('http://localhost:5000/api/v2/articles/udushya');
-}
-
-
+};
 
 class Home extends React.Component {
-
   state = {
     mainNyamukuru: [],
-    nyamukuru:[],
+    nyamukuru: [],
 
-    mainSport:[],
-    sport:[],
+    mainSport: [],
+    sport: [],
 
-    mainUtuntuNutundi:[],
-    viewsUtuntuNutundi:[],
-    utuntuNutundi:[],
+    mainUtuntuNutundi: [],
+    viewsUtuntuNutundi: [],
+    utuntuNutundi: [],
 
-    bestNews:[],
-    udushya:[],
-    
-    news:[],
-    showNews: false
+    bestNews: [],
+    udushya: [],
+
+    news: [],
+    showNews: false,
   }
 
   componentDidMount() {
+    Axios.get('http://localhost:5000/api/v2/articles/inkuruNyamukuru1')
+      .then((res) => this.setState({ mainNyamukuru: res.data.data }));
 
-  Promise.all([getMainNyamukuru(), getNyamukuru(), getMainSport(), getSport(), getMainUtuntuNutundi(),
-     getViewsUtuntuNutundi(), getUtuntuNutundi(), bestNews(), udushya() ])
+    Axios.get('http://localhost:5000/api/v2/articles/inkuruNyamukuru8')
+      .then((res) => this.setState({ nyamukuru: res.data.data }));
 
-    .then(Axios.spread((...res) => {
-      this.setState({ 
-        mainNyamukuru: res[0].data.data, nyamukuru: res[1].data.data, 
-        mainSport: res[2].data.data, sport: res[3].data.data,
-        mainUtuntuNutundi: res[4].data.data, viewsUtuntuNutundi: res[5].data.data, utuntuNutundi: res[6].data.data,
-        bestNews: res[7].data.data, udushya: res[8].data.data
+    Axios.get('http://localhost:5000/api/v2/articles/sport1')
+      .then((res) => this.setState({ mainSport: res.data.data }));
 
-        })
-           
-    }))
-    .catch(err => {
-      if(err.response) {
-       
-        console.log(err.response.data)
-      }
-  });
-}
-      
+    Axios.get('http://localhost:5000/api/v2/articles/sport5')
+      .then((res) => this.setState({ sport: res.data.data }));
+
+    Axios.get('http://localhost:5000/api/v2/articles/utuntuNutundi1')
+      .then((res) => this.setState({ mainUtuntuNutundi: res.data.data }));
+
+    Axios.get('http://localhost:5000/api/v2/articles/utuntuNutundiMostViews6')
+      .then((res) => this.setState({ viewsUtuntuNutundi: res.data.data }));
+
+    Axios.get('http://localhost:5000/api/v2/articles/utuntuNutundi3')
+      .then((res) => this.setState({ utuntuNutundi: res.data.data }));
+
+    Axios.get('http://localhost:5000/api/v2/articles/bestNews6')
+      .then((res) => this.setState({ bestNews: res.data.data }));
+
+    Axios.get('http://localhost:5000/api/v2/articles/udushya5')
+      .then((res) => this.setState({ udushya: res.data.data }));
+  }
 
   render() {
-
- 
     return (
-         <React.Fragment>   
-            <div className="advert">
-                <img style={{width:'100%'}} alt="addresiya" src={addresiya}/>
-            </div> 
-            <Header />   
-            <Tab /> 
+         <React.Fragment>
+            <div className="phoneDisplayNone">
+                <img style={{ width: '100%' }} alt="addresiya" src={addresiya}/>
+            </div>
+           <div className="phoneDisplayNone">
+           <SmallTab />
+           </div>
+            <div className="phoneDisplayNone">
+            <Header />
+           </div>
+            <Tab />
 
-            <div  className="advert" style={{padding:'5px', textAlign:'center', width:'100%', height:'auto'}}>
+            <div className="advert" style={{ padding: '5px', textAlign: 'center', width: '100%', height: 'auto' }}>
               <img alt="MTN-AYOBA" src={AyobaBig}/>
             </div>
 
-            <Row className="generalRow" style={{padding:'1.2% 3% 3%', borderTop:'1px solid #d0d5d8'}} >
-              <Col lg={9} xs={12}   style={{ background: '#eee',}}>
-                  
+            <Row className="generalRow" style={{ padding: '1.2% 3% 3%', borderTop: '1px solid #d0d5d8' }} >
+              <Col lg={9} xs={12} style={{ background: '#eee' }}>
+              <div className="phoneDisplayNone">
               {this.state.mainNyamukuru.map((news) => (
 
-               <Nav.Link href={`/SingleArticles/${news.id}/${news.title}`}>
-  
-                  <Card  style={{ width: '100%',border:'none',textAlign:'center', padding:'2% 0%', maxHeight:'59rem', overflow:'hidden'}}>
-                      <Card.Title className="s1title" ><h1 style={{fontWeight:'1000',color:'black', fontSize:'250%', lineHeight:'117%', textAlignLast:'center', borderBottom:'1px solid #d0d5d8e',}}>
-                         {news.title}
-                      </h1></Card.Title> 
-                        <Card.Body>
-                        <div className="s1subPragraph0" style={{fontStyle: 'oblique' }}>
-                          <h6 style={{ fontSize: '1rem', fontFamily:'roboto'}}  > <i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> yarebwe inshuro {news.views}  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</h6> 
-                        </div>
-                        <div style={{ width: '100%', height:'auto', overflow:'hidden', float:'right',marginLeft:'10px'}}>
-                          <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
-                        </div>            
-                  
-                          <p className="s1Pragraph">
-                          { ReactHtmlParser(news.description) }                
-                          </p>
-                        </Card.Body>                                                     
-                        <div className="s1subPragraph" style={{fontStyle: 'oblique' }}>
-                        <h6 style={{ fontSize: '1rem', fontFamily:'roboto'}}  > <i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> yarebwe inshuro {news.views}  |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</h6> 
-                        <h6 > yanditswe na <i style={{ fontSize: '1rem'}} class="material-icons">person</i> {news.author}</h6>  
-                        </div>
+                  <Nav.Link href={`/Article/${news.topic}/${news.id}/${news.title}`}>
 
-                    </Card>
-                </Nav.Link>
-                   
+                    <Card style={{ width: '100%', border: 'none', padding: '2%', paddingBottom: '100px', maxHeight: '40rem', borderBottom: '35px solid white', overflowX: 'hidden' }}>
+                        <Card.Title className="s1title" >
+                          <h1 className="hoveringTitle" style={{ fontWeight: '1000', cursor: 'pointer', color: 'black', fontSize: '250%', lineHeight: '117%', textAlignLast: 'center', paddingBottom: '20px' }}>
+                            {news.title}
+                          </h1>
+                          </Card.Title>
+                          <Card.Body>
+                          <div className="s1subPragraph0" style={{ fontStyle: 'oblique' }}>
+                            <medium style={{ fontSize: '1rem' }} className="text-muted"> <i style={{ fontSize: '1rem' }} class="material-icons">visibility</i> yarebwe inshuro <Badge style={{ backgroundColor: '#0d47a1', color: 'white' }} >{news.views}</Badge> |  <i style={{ fontSize: '1rem' }} class="material-icons">access_alarm</i> { moment(news.createdon).fromNow() }</medium>
+                          </div>
+                          <div style={{ width: '70%', height: 'auto', overflow: 'hidden', float: 'left', marginRight: '10px' }}>
+                            <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
+                          </div>
 
-                     ))}  
+                              <p style={{ maxHeight: '100px', overflow: 'hiden' }} className="s1Pragraph">
+                              { ReactHtmlParser(news.description) }
+                              </p>
 
+                          </Card.Body>
+                          <div className="s1subPragraph" style={{ fontStyle: 'oblique' }}>
+                          <h6 style={{ fontSize: '1rem' }} > <i style={{ fontSize: '1rem' }} class="material-icons">visibility</i> yarebwe inshuro {news.views}  |  <i style={{ fontSize: '1rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()}</h6>
+                          <h6 > yanditswe na <i style={{ fontSize: '1rem' }} class="material-icons">person</i> {news.author}</h6>
+                          </div>
 
-            <div  className="advert" style={{padding:'50px', textAlign:'center',}}>
-              <img alt="unicaf" src={unicafBIG}/>
-            </div>
-
-
-
-        {/* section 2 which contain MAIN NEWS */}
-        <h5 style={{borderBottom:'1px solid black', padding:'2px 10px', margin:'1% 0px 0px', fontFamily:"roboto", background:'#f8f9fa', fontStyle:'italic'}}>Inkuru nyamukuru</h5>  
-              <CardColumns className="s2Cardcol" style={{ marginTop: '30px', columnGap: '0.75rem'}}>
-
-           {this.state.nyamukuru.map((news) => (
-
-            
-
-                <Card  key={news.id} style={{border:'none',borderRadius:'0px', maxHeight:'auto'}}>
-                  <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd", }} href={`/SingleArticles/${news.id}/${news.title}`}>
-
-                      <div style={{ width: '100%', height:'auto', overflow:'hidden' }}>
-                        <Card.Img fluid src={`http://localhost:5000/${news.urltoimage}`} />
-                      </div>
-                      <Card.Title style={{ maxHeight:'72px', overflow:'hidden', minHeight:'72px',}} className="hoveringTitle"> {news.title} </Card.Title>
-                      <Card.Text style={{ paddingBottom: '5px', width:'100%'}}>
-                        <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><Badge  style={{fontSize:'0.90rem', fontFamily:'roboto'}} variant="primary">{news.topic}</Badge> |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium>
-                      </Card.Text>
+                      </Card>
                   </Nav.Link>
-                </Card>
-            
-              ))}  
 
-              </CardColumns>
+              ))}
+              </div>
 
-
-
-      {/* tv section  */}
-
-           <div className="advert" style={{padding:'20px', textAlign:'center',}}>
-              <Image alt="airtel" src={aitel}/>
-            </div>
-          
-            <h2 style={{overflow:'hidden', boxSizing:'border-box',fontFamily:'impact', height:'auto', textShadow: '4px -2px LightGray',letterSpacing:'5px', fontSize:'350%', color:'#02031c', background:'#fff', marginTop: '20px', marginBottom: '-4px', textAlign:'center',padding:'10px'}}>IGIHANGO TV</h2>
-          
-             
-              <Row style={{ background:'#02031c', height: 'auto'}}>
-                  <Col style={{ padding: '5% 2% 5% 2%'}} md={12} lg={4} xs={12}>
-                      <Carousel style={{height: 'auto', overflow:'hidden'}}>
-                        <Carousel.Item style={{overflow:'hidden'}} >
-                          <Image src={igihango2} fluid />
-                          <Carousel.Caption>
-                            <Button action href="#"style={{background:'#ee002d', border:'none', width:'60px', marginBottom:'17%', height:'auto' }} >
-                            <i style={{marginTop:'0px'}}  class="material-icons">play_arrow</i>
-                            </Button>
-                          </Carousel.Caption>
-                        </Carousel.Item>
-                        <Carousel.Item style={{overflow:'hidden'}} >
-                          <Image src={igihango2} fluid />
-                          <Carousel.Caption>
-                            <Button action href="#" style={{background:'#ee002d', border:'none', width:'60px', marginBottom:'17%', height:'auto'}} size="md">
-                            <i style={{marginTop:'0px'}} class="material-icons">play_arrow</i>
-                            </Button>
-                          </Carousel.Caption>
-                        </Carousel.Item>
-                      </Carousel>
-                  </Col>
-
-                  <Col style={{ padding: '5% 2% 5% 2%'}} md={6} lg={4} xs={12}>
-                     <Carousel style={{height: 'auto', overflow:'hidden'}}>
-                        <Carousel.Item style={{overflow:'hidden'}} >
-                          <Image src={igihango2} fluid/>
-                          <Carousel.Caption>
-                            <Button action href="#" style={{background:'#ee002d', border:'none', width:'60px', marginBottom:'17%', height:'auto'}} size="md">
-                               <i style={{marginTop:'0px'}} class="material-icons">play_arrow</i>
-                            </Button>
-                          </Carousel.Caption>
-                        </Carousel.Item>
-                        <Carousel.Item style={{overflow:'hidden'}} >
-                          <Image src={igihango2} fluid/>
-                          <Carousel.Caption>
-                            <Button action href="#" style={{background:'#ee002d', border:'none', width:'60px', marginBottom:'17%', height:'auto'}} size="md">
-                               <i style={{marginTop:'0px'}} class="material-icons">play_arrow</i>
-                            </Button>
-                          </Carousel.Caption>
-                        </Carousel.Item>
-                      </Carousel>
-                </Col>
-
-                <Col style={{ padding: '5% 2% 5% 2%'}} md={6} lg={4} xs={12}>
-                    <Carousel style={{height: 'auto', overflow:'hidden'}}>
-                      <Carousel.Item style={{overflow:'hidden'}} >
-                        <Image src={igihango2} fluid />
-                        <Carousel.Caption>
-                          <Button action href="#" style={{background:'#ee002d', border:'none', width:'60px', marginBottom:'17%', height:'auto'}} size="md">
-                              <i style={{marginTop:'0px'}} class="material-icons">play_arrow</i>
-                          </Button>
-                        </Carousel.Caption>
-                      </Carousel.Item>
-                      <Carousel.Item style={{overflow:'hidden'}} >
-                        <Image src={igihango2} fluid/>
-                        <Carousel.Caption>
-                          <Button action href="#" style={{background:'#ee002d', border:'none', width:'60px', marginBottom:'17%', height:'auto'}} size="md">
-                              <i style={{marginTop:'0px'}} class="material-icons">play_arrow</i>
-                          </Button>
-                        </Carousel.Caption>
-                      </Carousel.Item>
-                    </Carousel>
-                </Col>
-            </Row>
-           
-
-        {/* section 3 which contain SPORT NEWS */}
-
-        <h5 style={{borderBottom:'1px solid black', padding:'2px 10px', margin:'50px 0px 0px', fontFamily:"roboto", background:'#f8f9fa', fontStyle:'italic'}}>Amakuru ya Siporo</h5>    
-                <Row >        
-                  <Col lg={5} md={5} xs={12} >
-                  {this.state.sport.map((news) => (
-                   
-                        <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd", padding:'0px' }} href={`/SingleArticles/${news.id}/${news.title}`}>
-
-                            <Media style={part3Style}>                     
-                                  <Media.Body>
-                                    <h5 style={{maxHeight:'80px', overflow:'hidden', minHeight:'80px', fontSize:'1.2rem', fontWeight:'700', letterSpacing:'.2px', lineHeight: '25px'}} className="hoveringTitle">{news.title} </h5>    
-                                    <medium style={{ fontFamily:'roboto'}} className="text-muted"><i style={{ fontSize: '1rem',}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>             
-                                  </Media.Body>
-                                  <div style={{ width: '130px', height:'100px', overflow:'hidden'}}>
-                                    <Image  src={`http://localhost:5000/${news.urltoimage}`}  fluid/>
-                                  </div>                      
-                            </Media>
-                        </Nav.Link>
-                   
-                  ))}  
-                  </Col>
-
-                  <Col lg={7} md={7} xs={12}>
-
-                {this.state.mainSport.map((news) => (
-
-                  <Card style={{ border:'none', padding:'20px 2px', overflow:'hidden' }}>
-                      <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd", }} href={`/SingleArticles/${news.id}/${news.title}`}>
-
-                        <div style={{ width: '100%', height:'auto', overflow:'hidden', }}>
-                            <Image  src={`http://localhost:5000/${news.urltoimage}`}  fluid/>
-                        </div>
-                        <Card.Title className="hoveringTitle" style={{ paddingTop:'5px', fontSize:'2rem', fontWeight:'700' }}>{news.title}</Card.Title>
-                        <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><Badge  style={{fontSize:'0.90rem', fontFamily:'roboto'}} variant="primary">{news.topic}</Badge> |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium>               
-                        <Card.Text  style={{ maxHeight:'182px',overflow: 'hidden', paddingTop:'10px' }}>
-                        { ReactHtmlParser(news.description) }
-                        </Card.Text>
-                    </Nav.Link>
-                  </Card>
-                ))}  
-
-                  </Col>
-                </Row>
-
-
-                <div className="advert" style={{padding:'5px 100px 0px', width:'300%'}}>
-                  <img alt="IRINDE CORONA" src={corona}/>
-                </div>
-
-
-       {/* section 4 which contain UTUNTU NUTUNDI */}
-
-        <h5 style={{borderBottom:'1px solid black', padding:'2px 10px', margin:'50px 0px 0px', fontFamily:"roboto", background:'#f8f9fa', fontStyle:'italic'}}>Utuntu nutundi</h5>    
-                <Row >        
-                  <Col lg={4} md={5} xs={12}>  
-                  {this.state.utuntuNutundi.map((news) => (   
-
-                      <Card style={{border:'none',padding:'20px 0', overflow:'hidden' ,borderBottom:'1px solid #d0d5d8', borderRadius:'0px'}}>
-                        
-                        <Nav.Link style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd", }} href={`/SingleArticles/${news.id}/${news.title}`}>
-
-                            <div style={{ width: '100%', height:'auto', overflow:'hidden'}}>
-                              <Card.Img src={`http://localhost:5000/${news.urltoimage}`} />
-                            </div>
-                            <Card.Title className="hoveringTitle" style={{ overflow:'hidden', maxHeight:'83px', minHeight:'83px',paddingTop: '10px', fontSize:'1.3rem', fontWeight:'700', letterSpacing:'.2px', lineHeight: '25px'}}>{news.title}</Card.Title>
-                            <Card.Text style={{ paddingBottom: '5px'}}>
-                            <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><Badge  style={{fontSize:'0.90rem', fontFamily:'roboto'}} variant="primary">{news.topic}</Badge> |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium> 
+              {/* phone display */}
+              <div className="phoneDisplay">
+              {this.state.mainNyamukuru.map((news) => (
+                  <Col>
+                      <Card key={news.id} style={{ border: 'none', borderRadius: '0px', maxHeight: '100%' }}>
+                        <Nav.Link style={{ color: 'black' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+                          <Card.Title style={{ overflow: 'hidden', textAlign: 'center' }}>
+                          <h1 className="hoveringTitle" style={{ fontWeight: '1000', color: 'black', fontSize: '1.4rem', lineHeight: '117%', textAlignLast: 'center', borderBottom: '1px solid #d0d5d8e' }}>
+                          {news.title}
+                          </h1>
+                          </Card.Title>
+                            <Card.Text style={{ width: '100%', height: 'auto', overflow: 'hidden' }}>
+                              <Card.Img fluid src={`http://localhost:5000/${news.urltoimage}`} />
+                            </Card.Text>
+                            <Card.Text style={{ width: '100%' }}>
+                              <div>
+                                <i style={{ fontSize: '0.6rem' }} class="material-icons">visibility</i> <medium style={{ fontStyle: 'oblique', fontSize: '0.75rem', fontFamily: 'roboto' }} className="text-muted"> yarebwe inshuro <Badge style={{ backgroundColor: '#0d47a1', marginTop: '10px', fontSize: '0.65remm' }} >{news.views}</Badge> |  <i style={{ fontSize: '0.6rem', color: 'black' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()} </medium>
+                              </div>
+                              <div style={{ marginTop: '-5px' }}>
+                                <i style={{ fontSize: '0.6rem' }} class="material-icons">person</i><medium style={{ fontStyle: 'oblique', fontSize: '0.75rem', fontFamily: 'roboto' }} className="text-muted"> yanditswe na <Badge style={{ backgroundColor: '#0d47a1' }} >{news.author}</Badge> </medium>
+                              </div>
                             </Card.Text>
                         </Nav.Link>
                       </Card>
-                 ))}   
-                 
+                  </Col>
+              ))}
+              </div>
+
+            <div className="advert" style={{ padding: '50px', textAlign: 'center' }}>
+              <img alt="unicaf" src={unicafBIG}/>
+            </div>
+
+        {/* section 2 which contain MAIN NEWS */}
+        <h5 style={{ borderTop: '5px solid #eee', borderBottom: '1px solid black', padding: '2px 10px', margin: '1% 0px 0px', fontFamily: 'roboto', background: '#f8f9fa', fontStyle: 'italic' }}>AMAKURU AGEZWEHO</h5>
+        <Row xs={2} md={2} lg={4} className="g-2" style={{ paddingTop: '5px' }}>
+        {this.state.nyamukuru.map((news) => (
+            <Col style={{ background: '#fff' }}>
+                <Card key={news.id} style={{ border: 'none', borderRadius: '0px' }}>
+                  <a style={{ color: 'black', textDecoration: 'none', padding: '4px' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+
+                      <div style={{ width: '100%', height: 'auto', overflow: 'hidden' }}>
+                        <Card.Img fluid src={`http://localhost:5000/${news.urltoimage}`} />
+                      </div>
+                      <Card.Title style={{ overflow: 'hidden', lineHeight: 1.2, fontSize: '16px', fontWeight: 450 }} className="hoveringTitle"> {news.title} </Card.Title>
+                      <Card.Text style={{ paddingBottom: '5px', width: '100%' }}>
+                        <medium style={{ fontSize: '0.75rem', fontFamily: 'roboto' }} className="text-muted"> <i style={{ fontSize: '0.75rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()} <i style={{ fontSize: '0.75rem' }} class="material-icons">visibility</i> <Badge style={{ backgroundColor: '#0d47a1', color: 'white' }} >{news.views}</Badge> <span style={{ fontSize: '0.75rem' }} className="phoneDisplayNone">views</span></medium>
+                      </Card.Text>
+                  </a>
+                </Card>
+            </Col>
+        ))}
+        </Row>
+
+      {/* advertising  */}
+
+           <div className="advert" style={{ padding: '20px', textAlign: 'center' }}>
+              <Image alt="airtel" src={aitel}/>
+            </div>
+
+        {/* section 3 which contain SPORT NEWS */}
+
+        <h5 style={{ borderBottom: '1px solid black', padding: '2px 10px', margin: '15px 0px 0px', fontFamily: 'roboto', background: '#f8f9fa', fontStyle: 'italic' }}>AMAKURU YA SPORT</h5>
+                <Row >
+                  <Col lg={5} md={7} xs={12} className="phoneDisplayNone">
+                  {this.state.sport.map((news) => (
+
+                        <Nav.Link style={{ color: 'black', padding: '0px' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+
+                            <Media style={part3Style}>
+                            <Media.Body>
+                              <div style={{ paddingRight: '10px', width: '37%', height: 'auto', overflow: 'hidden', float: 'left' }}>
+                                <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
+                              </div>
+                              <h6 className="hoveringTitle" style={{ lineHeight: 1.6, paddingRight: '5px' }}> {news.title} </h6>
+                              <medium style={{ fontSize: '0.90rem', fontFamily: 'roboto' }} className="text-muted"><i style={{ fontSize: '0.7rem' }} class="material-icons">visibility</i> <Badge style={{ backgroundColor: '#0d47a1', color: 'white' }} >{news.views}</Badge> views |  <i style={{ fontSize: '0.7rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()}</medium>
+                          </Media.Body>
+                            </Media>
+                        </Nav.Link>
+                  ))}
                   </Col>
 
-                  <Col  lg={8} md={7} xs={12}>
+                  <Col lg={7} md={12} xs={12}>
 
-                {this.state.mainUtuntuNutundi.map((news) => (       
+                {this.state.mainSport.map((news) => (
 
-                  <Card className="s1title"  style={{border:'none',padding:'20px 0',textAlign:'center', overflow:'hidden'}}>
+                  <Card style={{ border: 'none', padding: '20px 2px', overflow: 'hidden' }}>
+                      <Nav.Link style={{ color: 'black' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
 
-                    <Nav.Link  style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd" }} href={`/SingleArticles/${news.id}/${news.title}`}>
-                        <Card.Title className="s1title" ><h1 style={{fontWeight:'1000',color:'black', fontSize:'250%', lineHeight:'117%', textAlignLast:'center', borderBottom:'1px solid #d0d5d8e',}}>
+                        <div style={{ width: '100%', height: 'auto', overflow: 'hidden' }}>
+                            <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
+                        </div>
+                        <Card.Title className="hoveringTitle phoneDisplayNone" style={{ paddingTop: '5px', textAlign: 'center', fontSize: '1.9rem', lineHeight: 1.3, fontWeight: '700' }}>{news.title}</Card.Title>
+                        <Card.Title className="hoveringTitle phoneDisplay" style={{ paddingTop: '5px', textAlign: 'center', fontSize: '1.2rem', lineHeight: 1.3, fontWeight: '700' }}>{news.title}</Card.Title>
+                        <medium style={{ fontSize: '0.90rem', fontFamily: 'roboto' }} className="text-muted"><i style={{ fontSize: '0.75rem' }} class="material-icons">visibility</i> <Badge style={{ backgroundColor: '#0d47a1', color: 'white' }} >{news.views}</Badge> views |  <i style={{ fontSize: '0.75rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()}</medium>
+                        <Card.Text className="phoneDisplayNone" style={{ maxHeight: '250px', overflowX: 'hidden', paddingTop: '10px' }}>
+                        { ReactHtmlParser(news.description) }
+                        </Card.Text>
+                    </Nav.Link>
+                    <img className="phoneDisplay"
+                        src={ADSphotographer}
+                        width="100%"
+                        height="100%"
+                      />
+                  </Card>
+                ))}
+
+                {/* phone display */}
+                <div style={{ borderTop: '10px solid #eee' }}>
+                {this.state.sport.map((news) => (
+
+                  <Nav.Link className="phoneDisplay" style={{ color: 'black', padding: '0px' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+
+                      <Media style={part3Style}>
+                      <Media.Body>
+                        <div style={{ paddingRight: '10px', width: '37%', height: 'auto', overflow: 'hidden', float: 'left' }}>
+                          <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
+                        </div>
+                        <h6 className="hoveringTitle" style={{ lineHeight: 1.6, paddingRight: '5px' }}> {news.title} </h6>
+                        <medium className="text-muted" ><i style={{ fontSize: '0.75rem' }} class="material-icons">visibility</i> <Badge style={{ fontSize: '0.6rem', backgroundColor: '#0d47a1', color: 'white' }} >{news.views}</Badge> views |  <i style={{ fontSize: '0.75rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()} </medium>
+                    </Media.Body>
+                      </Media>
+                  </Nav.Link>
+                ))}
+                </div>
+                  </Col>
+                </Row>
+
+                <div className="advert" style={{ padding: '5px 100px 0px', width: '300%' }}>
+                  <img alt="IRINDE CORONA" src={corona}/>
+                </div>
+
+       {/* section 4 which contain UTUNTU NUTUNDI */}
+
+        <h5 style={{ borderBottom: '1px solid black', padding: '2px 10px', margin: '15px 0px 0px', fontFamily: 'roboto', background: '#f8f9fa', fontStyle: 'italic' }}>UTUNTU N'UTUNDI</h5>
+        <Row >
+                  <Col lg={4} md={12} xs={12}>
+
+         {/* ----------------phone display-------------- */}
+                  {this.state.mainUtuntuNutundi.map((news) => (
+
+                   <Card className="s1title phoneDisplay" style={{ border: 'none', padding: '20px 0', textAlign: 'center', overflow: 'hidden' }}>
+
+                    <Nav.Link style={{ color: 'black' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+                        <Card.Title ><h1 style={{ fontWeight: '700', color: 'black', fontSize: '24px', lineHeight: 1.4, textAlignLast: 'center', borderBottom: '1px solid #d0d5d8e' }}>
                         {news.title}</h1>
                         </Card.Title>
-                        <Card.Text style={{ paddingBottom: '5px',  textAlign:'center',}}>
-                        <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><Badge  style={{fontSize:'0.90rem', fontFamily:'roboto'}} variant="primary">{news.topic}</Badge> |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium> 
+                        <Card.Text style={{ paddingBottom: '5px', textAlign: 'center' }}>
+                        <medium style={{ fontSize: '0.90rem', fontFamily: 'roboto' }} className="text-muted"><Badge style={{ fontSize: '0.90rem', backgroundColor: '#0d47a1', fontFamily: 'roboto' }} variant="primary">{news.category}</Badge> |  <i style={{ fontSize: '0.8rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()}</medium>
                         </Card.Text>
-                        <div style={{ width: '100%', height:'auto', overflow:'hidden'}}>
+                        <div style={{ width: '100%', height: 'auto', overflow: 'hidden' }}>
                           <Card.Img src={`http://localhost:5000/${news.urltoimage}`}/>
+                        </div>
+                        <div style={{ borderBottom: '5px solid #eee', fontStyle: 'oblique' }}>
+                          <div><medium className="text-muted" style={{ fontSize: '0.8rem', fontFamily: 'roboto' }} ><i style={{ fontSize: '0.75rem' }} class="material-icons">visibility</i> yarebwe inshuro <Badge style={{ backgroundColor: '#0d47a1' }} >{news.views}</Badge>  |  <i style={{ fontSize: '0.75rem' }} class="material-icons">access_alarm</i> { moment(news.createdon).fromNow() }</medium></div>
+                          <div><medium className="text-muted" style={{ fontSize: '0.8rem', fontFamily: 'roboto' }} ><i style={{ fontSize: '0.75rem' }} class="material-icons">person</i> yanditswe na <Badge style={{ backgroundColor: '#0d47a1' }} >{news.author}</Badge> </medium></div>
                         </div>
                     </Nav.Link>
                   </Card>
-                ))} 
+                  ))}
+                  {this.state.utuntuNutundi.map((news) => (
 
-                  <CardColumns style={{ marginTop: '20px', columnCount:'2', columnGap: '0.75rem'}}>
+                      <Card style={{ border: 'none', padding: '20px 0', overflow: 'hidden', borderBottom: '1px solid #d0d5d8', borderRadius: '0px' }}>
 
-                  {this.state.viewsUtuntuNutundi.map((news) => (  
-                      <Card style={{border:'none' ,borderRight:'1px solid #828282', borderRadius:'0px', maxHeight:'300px', }}>
-                          <Nav.Link style={{ color: 'black', fontFamily:"PeriodicoDisplay-Bd" }} href={`/SingleArticles/${news.id}/${news.title}`}>
+                        <Nav.Link style={{ color: 'black' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
 
-                              <h6 className="hoveringTitle" style={{fontSize:'1.3rem', paddingRight:'5px', maxHeight:'101px', minHeight:'101px', overflow:'hidden', textOverflow: 'ellipsis'}}>{news.title}</h6>
-                              <Card.Text  style={{ paddingBottom: '5px'}}>
-                              <medium  style={{fontSize:'0.90rem', fontFamily:'roboto'}} className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon}</medium> 
-                              </Card.Text>
-                          </Nav.Link>
+                            <div style={{ width: '100%', height: 'auto', overflow: 'hidden' }}>
+                              <Card.Img src={`http://localhost:5000/${news.urltoimage}`} />
+                            </div>
+                            <Card.Title className="hoveringTitle" style={{ lineHeight: 1.6, overflow: 'hidden', paddingTop: '10px', fontSize: '18px', fontWeight: '500' }}>{news.title}</Card.Title>
+                            <Card.Text style={{ paddingBottom: '5px' }}>
+                            <medium style={{ fontSize: '0.90rem', fontFamily: 'roboto' }} className="text-muted"><Badge style={{ fontSize: '0.80rem', fontFamily: 'roboto', backgroundColor: '#0d47a1' }} >{news.category}</Badge> |  <i style={{ fontSize: '0.7rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()}</medium>
+                            </Card.Text>
+                        </Nav.Link>
                       </Card>
-                    ))} 
-                    
-                  
-                  </CardColumns>
+                  ))}
+
+                  </Col>
+
+                  <Col lg={8} md={12} xs={12}>
+
+                {this.state.mainUtuntuNutundi.map((news) => (
+
+                  <Card className="s1title phoneDisplayNone" style={{ border: 'none', padding: '20px 0', textAlign: 'center', overflow: 'hidden' }}>
+
+                    <Nav.Link style={{ color: 'black' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+                        <Card.Title ><h1 style={{ fontWeight: '700', color: 'black', fontSize: '30px', lineHeight: 1.4, textAlignLast: 'center', borderBottom: '1px solid #d0d5d8e' }}>
+                        {news.title}</h1>
+                        </Card.Title>
+                        <Card.Text style={{ paddingBottom: '5px', textAlign: 'center' }}>
+                        <medium style={{ fontSize: '0.90rem', fontFamily: 'roboto' }} className="text-muted"><Badge style={{ fontSize: '0.60rem', backgroundColor: '#0d47a1', fontFamily: 'roboto' }} variant="primary">{news.category}</Badge> |  <i style={{ fontSize: '0.6rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()}</medium>
+                        </Card.Text>
+                        <div style={{ width: '100%', height: 'auto', overflow: 'hidden' }}>
+                          <Card.Img src={`http://localhost:5000/${news.urltoimage}`}/>
+                        </div>
+                        <div style={{ fontStyle: 'oblique' }}>
+                          <div><medium className="text-muted" style={{ fontSize: '0.8rem', fontFamily: 'roboto' }} ><i style={{ fontSize: '0.7rem' }} class="material-icons">visibility</i> yarebwe inshuro <Badge style={{ backgroundColor: '#0d47a1' }} >{news.views}</Badge>  |  <i style={{ fontSize: '0.7rem' }} class="material-icons">access_alarm</i> { moment(news.createdon).fromNow() }</medium></div>
+                          <div><medium className="text-muted" style={{ fontSize: '0.8rem', fontFamily: 'roboto' }} ><i style={{ fontSize: '0.7rem' }} class="material-icons">person</i> yanditswe na <Badge style={{ backgroundColor: '#0d47a1' }} >{news.author}</Badge> </medium></div>
+                        </div>
+                    </Nav.Link>
+                  </Card>
+                ))}
+                  <Row xs={1} md={12} lg={2} className="g-2" style={{ borderTop: '15px solid #eee' }}>
+                  {this.state.viewsUtuntuNutundi.map((news) => (
+                      <Col className="phoneDisplayNone">
+                          <Card key={news.id} style={{ border: 'none' }}>
+                            <Nav.Link style={{ color: 'black' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+
+                                <Card.Title style={{ lineHeight: 1.6, maxHeight: '150px', minHeight: '100px', fontSize: '18px', fontWeight: '500' }} className="hoveringTitle"> {news.title} </Card.Title>
+                                <Card.Text style={{ paddingBottom: '5px', width: '100%' }}>
+                                  <medium style={{ fontSize: '0.75rem', fontFamily: 'roboto' }} className="text-muted"><Badge style={{ fontSize: '0.75rem', fontFamily: 'roboto', backgroundColor: '#0d47a1' }} variant="primary">{news.category}</Badge> |  <i style={{ fontSize: '0.6rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()}</medium>
+                                </Card.Text>
+                            </Nav.Link>
+                          </Card>
+                      </Col>
+                  ))}
+
+                  {/* ----------------phone display-------------- */}
+                  {this.state.viewsUtuntuNutundi.map((news) => (
+                      <Col className="phoneDisplay">
+                          <Card key={news.id} style={{ border: 'none' }}>
+                            <Nav.Link style={{ color: 'black' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+
+                                <Card.Title style={{ lineHeight: 1.6, fontSize: '18px', fontWeight: '500' }} className="hoveringTitle"> {news.title} </Card.Title>
+                                <Card.Text style={{ paddingBottom: '5px', width: '100%' }}>
+                                  <medium style={{ fontSize: '0.70rem', fontFamily: 'roboto' }} className="text-muted"><Badge style={{ fontSize: '0.7rem', fontFamily: 'roboto', backgroundColor: '#0d47a1' }} variant="primary">{news.category}</Badge> |  <i style={{ fontSize: '0.7rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()}</medium>
+                                </Card.Text>
+                            </Nav.Link>
+                          </Card>
+                      </Col>
+                  ))}
+              <img className="phoneDisplay"
+                src={ADSphotographer}
+                width="26%"
+                height="26%"
+              />
+                  </Row>
                 </Col>
-              </Row>
+        </Row>
               </Col>
-   
+
         {/* Part 2 Advertising and hit news */}
 
-          <Col md={12} lg={3} xs={12}>
+          <Col md={6} lg={3} xs={12} style ={{ borderTop: '10px solid #eee' }}>
 
-            <div className="advert" style={{paddingTop:'20px'}}>
+            <div className="advert" style={{ paddingTop: '20px' }}>
                 <img alt="RIB" src={RIBguhohotera}/>
             </div>
-              <h4 style ={{fontFamily:'roboto', fontStyle:'italic', whiteSpace:'nowrap', margin:'10px', borderBottom:'1px solid black'}} >INKURU ZIGEZWEHO</h4>
+              <h4 style ={{ fontFamily: 'roboto', fontStyle: 'italic', whiteSpace: 'nowrap', margin: '10px', borderBottom: '1px solid black' }} >INKURU ZIKUNZWE</h4>
 
-              {this.state.bestNews.map((news) => ( 
-                
-                <Nav.Link  style={{ padding:'0px'}}  href={`/SingleArticles/${news.id}/${news.title}`}>
+              {this.state.bestNews.map((news) => (
 
-                     <Media style={part3Style}>
-                          <Media.Body>
-                            <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px', maxHeight:'80px', minHeight:'80px', overflow:'hidden'}}> {news.title} </h6>    
-                            <medium className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>            
-                          </Media.Body>
-                          <div style={{ width: '37%', height:'auto', overflow:'hidden'}}>
-                            <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
-                          </div>
-                      </Media>
+                <Nav.Link style={{ color: 'black', padding: '0px' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
+
+                  <Media style={part3Style}>
+                    <Media.Body>
+                      <div style={{ paddingRight: '10px', width: '40%', height: 'auto', float: 'left' }}>
+                        <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
+                      </div>
+                      <div>
+                        <h6 className="hoveringTitle" style={{ lineHeight: 1.5, paddingRight: '5px', fontSize: '0.9rem' }}> {news.title} </h6>
+                        <medium className="text-muted" style={{ fontSize: '0.75rem' }}><i style={{ fontSize: '0.6rem' }} class="material-icons">visibility</i> <Badge style={{ backgroundColor: '#0d47a1', color: 'white' }} >{news.views}</Badge> views |  <i style={{ fontSize: '0.6rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()} </medium>
+                      </div>
+                    </Media.Body>
+                  </Media>
                 </Nav.Link>
 
-              ))} 
+              ))}
 
-  
-                <div style={{paddingTop:'20px'}}>
+                <div className="advert" style={{ paddingTop: '20px' }}>
                    <img alt="Euronews" src={Euronews}/>
                 </div>
-                <div  style={{paddingTop:'20px'}}>
+                <div className="advert" style={{ paddingTop: '20px' }}>
                    <img alt="police" src={police}/>
                 </div>
-                <div className="advert" style={{paddingTop:'20px'}}>
+                <div className="advert" style={{ paddingTop: '20px' }}>
                    <img alt="4G squqre" src={fourG}/>
                 </div>
-                <div style={{paddingTop:'20px'}}>
-                   <img alt="mtnyoba" src={mtnyoba}/>
-                </div>
-                <div className="advert" style={{paddingTop:'20px'}}>
+                <div className="advert" style={{ paddingTop: '20px' }}>
                    <img alt="startimesSMALL" src={startimesSMALL}/>
                 </div>
 
                          {/* subscribe section */}
-                <div style={{background:'#02031c',width:'103%', border:'2px solid red', marginTop:'20px'}}> 
-                <Form style={{padding:'5px 10px', paddingRight:'30px'}}>
-                    <h5  style={{color:'red', fontFamily:'roboto', margin:'20px 10px', textAlign:'center'}}> IYANDIKISHE</h5>
-                    <p style={{color:'#fff', textAlign:'center', fontStyle:'italic', margin:'15px', fontFamily:'roboto'}}>
+                <div style={{ background: '#02031c', width: '103%', border: '2px solid red', marginTop: '20px' }}>
+                <Form style={{ padding: '5px 10px', paddingRight: '30px' }}>
+                    <h5 style={{ color: 'red', fontFamily: 'roboto', margin: '20px 10px', textAlign: 'center' }}> IYANDIKISHE</h5>
+                    <p style={{ color: '#fff', textAlign: 'center', fontStyle: 'italic', margin: '15px', fontFamily: 'roboto' }}>
                       Uzuza imyirondoro yawe inkuru zose zijye zikugeraho kugihe</p>
-                    <Form.Control style={{margin:'15px', width:'95%'}} type="text" placeholder="Uzuza Amazina yawe hano" />
-                    <Form.Control style={{margin:'15px', width:'95%'}} type="email" placeholder="Uzuza Email yawe hano" />
-                    <Form.Text style={{ margin:'15px'}} className="text-muted">
+                    <Form.Control style={{ margin: '15px', width: '95%' }} type="text" placeholder="Uzuza Amazina yawe hano" />
+                    <Form.Control style={{ margin: '15px', width: '95%' }} type="email" placeholder="Uzuza Email yawe hano" />
+                    <Form.Text style={{ margin: '15px' }} className="text-muted">
                       Ntamuntu tuzigera dusangiza imyirondoro yawe.
                     </Form.Text>
-                    <Button  style={{width:'95%', margin:'10px'}} variant="primary" type="submit">Subscribe</Button>
+                    <Button style={{ width: '95%', margin: '10px' }} variant="primary" type="submit">Subscribe</Button>
                 </Form>
                 </div>
+                <h4 style ={{ fontFamily: 'roboto', fontStyle: 'italic', whiteSpace: 'nowrap', margin: '10px', borderBottom: '1px solid black' }} >UDUSHYA</h4>
 
-                <div className="advert" style={{paddingTop:'20px'}}>
-                   <img alt="KBCwesternUNION" src={KBCwesternUNION}/>
-                </div>
+                {this.state.udushya.map((news) => (
 
-                <h4 style ={{fontFamily:'roboto', fontStyle:'italic', whiteSpace:'nowrap', margin:'10px', borderBottom:'1px solid black'}} >UDUSHYA</h4>
+                  <Nav.Link style={{ color: 'black', padding: '0px' }} href={`/Article/${news.topic}/${news.id}/${news.title}`}>
 
-                {this.state.udushya.map((news) => (  
+                  <Media style={part3Style}>
+                    <Media.Body>
+                      <div style={{ paddingRight: '10px', width: '40%', height: 'auto', float: 'left' }}>
+                        <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
+                      </div>
+                      <div>
+                        <h6 className="hoveringTitle" style={{ lineHeight: 1.5, paddingRight: '5px', fontSize: '0.9rem' }}> {news.title} </h6>
+                        <medium className="text-muted" style={{ fontSize: '0.75rem' }}><i style={{ fontSize: '0.6rem' }} class="material-icons">visibility</i> <Badge style={{ backgroundColor: '#0d47a1', color: 'white' }} >{news.views}</Badge> views |  <i style={{ fontSize: '0.6rem' }} class="material-icons">access_alarm</i> {moment(news.createdon).fromNow()} </medium>
+                      </div>
+                    </Media.Body>
+                  </Media>
+                  </Nav.Link>
+                ))}
 
-                    <Nav.Link style={{ padding:'0px'}} href={`/SingleArticles/${news.id}/${news.title}`}>
-
-                      <Media style={part3Style}>
-                          <Media.Body>
-                            <h6 className="hoveringTitle" style={{fontSize:'1.05rem', paddingRight:'5px', maxHeight:'80px', minHeight:'80px', overflow:'hidden'}}> {news.title} </h6>    
-                            <medium className="text-muted"><i style={{ fontSize: '1rem'}} class="material-icons">visibility</i> {news.views} views |  <i style={{ fontSize: '1rem'}} class="material-icons">access_alarm</i> {news.createdon} </medium>            
-                          </Media.Body>
-                          <div style={{ width: '37%', height:'auto', overflow:'hidden'}}>
-                            <Image src={`http://localhost:5000/${news.urltoimage}`} fluid/>
-                          </div>
-                      </Media>
-                    </Nav.Link>  
-                ))} 
-
-               
-              </Col>   
+              </Col>
+              <div className="advert" style={{ padding: '5px', width: '100%' }}>
+                <img alt="mount kenya" src={MKENYA}/>
+              </div>
+              <img className="phoneDisplay"
+                src={ADSphotographer}
+                width="26%"
+                height="26%"
+              />
             </Row>
-        
-        <div className="advert" style={{padding:'5px 100px 0px', width:'300%'}}>
-          <img alt="mount kenya" src={MKENYA}/>
-        </div> 
-            <Footer />     
+            <Footer />
         </React.Fragment>
-    );   
+    );
+  }
 }
-}
 
-
-export default Home
-
+export default Home;

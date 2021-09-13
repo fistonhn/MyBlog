@@ -1,85 +1,85 @@
-import React from 'react'
-import Axios from 'axios'
-import { Redirect } from 'react-router'
-import Header from '../layout/Header'
-import Footer from '../layout/Footer'
-import { Col, Row, ListGroup, Button, Form } from 'react-bootstrap'
+import React from 'react';
+import Axios from 'axios';
+import { Redirect } from 'react-router';
+import { Col, Row, ListGroup, Button, Form } from 'react-bootstrap';
+import Tab from '../layout/Tab';
+import Header from '../layout/Header';
+import Footer from '../layout/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const listStyle={
-    color:'#fff',
-    backgroundColor:'inherit',
-    paddingLeft:'5%',
-    borderBottom: '2px dotted #02031c',
-    width:'105%'
-}
+const listStyle = {
+  color: '#fff',
+  backgroundColor: 'inherit',
+  paddingLeft: '5%',
+  borderBottom: '2px dotted #02031c',
+  width: '105%',
+};
 
 class Login extends React.Component {
-
-
     state = {
-        email: '',
-        password: '',
-        fireRedirect: false,
-        errors: '',
-      }
-
-       onCreateEmail = e => {
-        this.setState({ 
-   
-            email: e.target.value, 
-        });
-      }  
-      
-      onCreatePassword= e => {
-        this.setState({ 
-            password: e.target.value,
-        });
-      }
-
-
-    dataSubmit = e => {
-        e.preventDefault();
-
-        const user = {
-            email: this.state.email,
-            password: this.state.password,
-          }
-
-
-        Axios.post(`http://localhost:5000/api/v2/auth/signin`, user)
-          .then(res => {
-            localStorage.setItem('token', res.data.data.token);
-            if(res.data.status === 200) {
-                
-                this.setState({ fireRedirect: true })
-              }else if(res.data.error){
-                  this.setState({
-                  errors:res.data.error
-                });
-              }
-            
-          })
-          .catch(err => {
-              if(err.response) {
-               
-                console.log(this.state.fireRedirect)
-                console.log(err.response.data)
-              }
-          });
-      }
-
-render() { 
-
-    if(this.state.fireRedirect) {
-        return <Redirect to={'/CreatePost'}/>
+      email: '',
+      password: '',
+      fireRedirect: false,
+      errors: '',
     }
 
-    return (
+       onCreateEmail = (e) => {
+         this.setState({
+
+           email: e.target.value,
+         });
+       }
+
+      onCreatePassword= (e) => {
+        this.setState({
+          password: e.target.value,
+        });
+      }
+
+    dataSubmit = (e) => {
+      e.preventDefault();
+
+      const user = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+
+      Axios.post('http://localhost:5000/api/v2/auth/signin', user)
+        .then((res) => {
+          localStorage.setItem('token', res.data.data.token);
+          if (res.data.status === 200) {
+            this.setState({ fireRedirect: true });
+          } else if (res.data.error) {
+            this.setState({
+              errors: res.data.error,
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.response) {
+            this.setState({ errors: err.response.data.error });
+
+            setTimeout(() => this.setState({ errors: ' ' }), 3000);
+            console.log(err.response.data);
+          }
+        });
+    }
+
+    render() {
+      if (this.state.fireRedirect) {
+        return <Redirect to={'/CreatePost'}/>;
+      }
+
+      return (
         <div>
-            <Header /> 
+            <div className="phoneDisplay">
+            <Tab />
+           </div>
+            <div className="phoneDisplayNone">
+            <Header />
+           </div>
             <Row>
-                <Col lg={3} md={3} xs={12}  style={{height:'auto', background:'#0d47a1'}}>
+                <Col lg={3} md={3} xs={12} style={{ height: 'auto', background: '#0d47a1' }}>
                 <ListGroup variant="flush" >
                     <ListGroup.Item action href="/" style={listStyle}>
                     Home
@@ -92,31 +92,37 @@ render() {
                     </ListGroup.Item>
                 </ListGroup>
                 </Col>
-                <Col  lg={9} md={9} xs={12}  style={{height:'auto', padding:'5% 8%',}}>
-                    <h2 style={{textAlign:'center', paddingBottom:'20px', fontFamily:"roboto",fontSize:'2rem', overflow:'hidden' }}>Sign in</h2>
+                <Col lg={9} md={9} xs={12} style={{ height: 'auto', padding: '5% 8%' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '10px', fontSize: '1.7rem', backgroundColor: '#B73225' }}> {this.state.errors} </div>
+                    <h2 style={{ textAlign: 'center', paddingBottom: '20px', fontFamily: 'roboto', fontSize: '2rem', overflow: 'hidden' }}>Sign in</h2>
                     <Form>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label><h5 style={{fontFamily:"roboto", }}>Email address</h5></Form.Label>
+                        <Form.Label><h5 style={{ fontFamily: 'roboto' }}>Email address</h5></Form.Label>
                         <Form.Control onChange={this.onCreateEmail} type="email" placeholder="Enter email" />
                         <Form.Text className="text-muted">
-                       <p className="text-muted"  style={{fontFamily:"roboto",fontSize:'0.75rem',}} >We'll never share your email with anyone else.</p>
+                       <p className="text-muted" style={{ fontFamily: 'roboto', fontSize: '0.75rem' }} >We'll never share your email with anyone else.</p>
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label><h5 style={{fontFamily:"roboto", }}>Password</h5></Form.Label>
+                        <Form.Label><h5 style={{ fontFamily: 'roboto' }}>Password</h5></Form.Label>
                         <Form.Control onChange={this.onCreatePassword} type="password" placeholder="Password" />
                     </Form.Group>
                     <Button onClick={this.dataSubmit} variant="primary" type="submit">
                         Login
                     </Button>
+                    <div style={{ marginTop: '15px', float: 'right' }}><p>Don't have an Account ? </p>
+                        <Button action href="/register" style={{ marginTop: '-10px', float: 'right' }} variant="primary" size="md">
+                        signup
+                        </Button>
+                    </div>
                     </Form>
                 </Col>
             </Row>
-            <Footer />  
+            <Footer />
         </div>
-    )
-}
+      );
+    }
 }
 
-export default Login
+export default Login;

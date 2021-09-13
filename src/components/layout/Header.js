@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -8,12 +9,13 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import igihango from '../pictures/igihango.png';
+import ADSphotographer from '../pictures/ADSphotographer.gif';
+import ClockApp from './clock/clockApp';
 
-
-const navBarStyle={
-  fontFamily: "Roboto",
-  paddingLeft:'5%'
-}
+const navBarStyle = {
+  fontFamily: 'Roboto',
+  paddingLeft: '5%',
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,22 +76,21 @@ export default function SearchAppBar() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-    <AppBar style={{backgroundColor:'#f8f9fa',  color:'#0d47a1', fontFamily: 'Roboto', fontWeight:'700'}} position="static">
+    <AppBar style={{ backgroundColor: '#f8f9fa', color: '#0d47a1', fontFamily: 'Roboto', fontWeight: '700' }} position="static">
     <Toolbar>
 
           <Typography variant="h6" className={classes.title} style={navBarStyle}>
-            <Link  href="/">
+            <Link href="/">
             <img
-                    src={igihango}
-                    width="243"
-                    height="90.396"
-                    className="responsive-navbar-nav"
-                    alt="IGIHANGO.RW"
-                  />
+              src={igihango}
+              width="200px"
+              height="141px"
+              className="responsive-navbar-nav"
+              alt="AHAZAZA.COM"
+            />
             </Link>
           </Typography>
 
-          <Button color="inherit"> <Link href="/Login">Login</Link></Button>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -105,6 +106,13 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          <img
+            src={ADSphotographer}
+            width="280px"
+            height="155px"
+            alt="AHAZAZA.COM"
+          />
+          <ClockApp />
         </Toolbar>
       </AppBar>
     </div>
